@@ -1,3 +1,5 @@
+/* TODO: How to store general notes? */
+
 CREATE SCHEMA BirdsEye
 
 CREATE TABLE IF NOT EXISTS BirdsEye.users(
@@ -7,14 +9,15 @@ CREATE TABLE IF NOT EXISTS BirdsEye.users(
 );
 
 CREATE TABLE IF NOT EXISTS BirdsEye.customers(
-	customer_id PRIMARY KEY,
+	customer_id integer PRIMARY KEY,
 	name varchar(50) NOT NULL,
+	email varchar(50) NOT NULL,
 	phone integer,
 	aspirations text[]
 );
 
 CREATE TABLE IF NOT EXISTS BirdsEye.homes(
-	home_id PRIMARY KEY,
+	home_id integer PRIMARY KEY,
 	address varchar(150), /* unique? */
 	sqft integer,
 	stories integer,
@@ -37,19 +40,19 @@ CREATE TABLE IF NOT EXISTS BirdsEye.customer_homes(
 );
 
 CREATE TABLE IF NOT EXISTS BirdsEye.rooms(
-	room_id PRIMARY KEY,
+	room_id integer PRIMARY KEY,
 	type varchar(50),
 	sqft integer,
-	window_count integer DEFAULT 0,
+	window_count integer DEFAULT 0, /* for ease of entry, or no? */
 	story integer,
 	FOREIGN KEY home_id REFERENCES BirdsEye.homes NOT NULL
 );
 
 /* store photos locally or submit to aws/imgur/etc? */
 CREATE TABLE IF NOT EXISTS BirdsEye.images(
-	image_id PRIMARY KEY,
-	image_url NOT NULL,
+	image_id integer PRIMARY KEY,
+	image_url text NOT NULL, /* text because urls can get looong */
 	FOREIGN KEY customer_id REFERENCES BirdsEye.customers NOT NULL,
 	FOREIGN KEY home_id REFERENCES BirdsEye.homes,
-	FOREIGN KEY room_id RFERENCES BirdsEye.rooms, 
+	FOREIGN KEY room_id REFERENCES BirdsEye.rooms
 );
