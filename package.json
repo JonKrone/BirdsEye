@@ -1,0 +1,11 @@
+{
+  "name": "BirdsEye",
+  "version": "0.0.0",
+  "description": "The backend service for maintaining client infomation and performing Home consultations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathan Krone <jonathankrone@gmail.com>",
+  "license": "MIT"
+}
