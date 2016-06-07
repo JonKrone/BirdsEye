@@ -2,8 +2,8 @@
 global.expect = require('chai').expect;
 
 // Hoist global variables for ease of referencing these directories
-global.__models = __dirname + '../server/models';
-global.__lib = __dirname + '../lib';
+global.__models = __dirname + '/../server/models';
+global.__lib = __dirname + '/../lib';
 
 // Mocha helpers to support coroutine tests
 const bb = require('bluebird');
