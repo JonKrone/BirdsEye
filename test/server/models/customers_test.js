@@ -1,5 +1,5 @@
 require(TEST_HELPER);
-const db = require(__lib + '/db');
+const db = require(__lib + '/db/connection');
 const Customers = require(__models + '/customers');
 
 describe('Customers model', function () {
