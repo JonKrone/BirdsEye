@@ -8,5 +8,4 @@ describe('Homes model', function () {
 	it_('should ...', function* () {
 
 	})
-
-})
+});
