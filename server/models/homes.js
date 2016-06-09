@@ -7,7 +7,7 @@ const Homes = module.exports;
 /*
 	Create a home!
 
-	// TODO: WHAT IS THE unique, unchangeable reference for a home?
+	// TODO: What is the unique, unchangeable reference for a home?
 
 	@param home: {
 		address <String>
@@ -41,19 +41,19 @@ Homes.updateByAddress = function(_address, newHome) {
 		.update(newHome);
 }
 
-// Fetch the home associated with @param _home_id
-Homes.ofId = function(_home_id) {
-	return db('homes')
-		.where({ home_id: _home_id })
-		.then(Help.first)
-		.catch(Help.reportError('finding a home by its id'));
-}
-
 // Fetch the homes associated with @param _customer_id
 Homes.ofCustomerId = function(_customer_id) {
 	return db('customers_homes')
 		.where({ customer_id: _customer_id })
 		.select('home_id')
-		.map(Homes.byId)
+		.map(byId)
 		.catch(Help.reportError('retrieving homes by customer id'))
+}
+
+// Private utility to fetch the home associated with @param _home_id
+function ofId(_home_id) {
+	return db('homes')
+		.where({ home_id: _home_id })
+		.then(Help.first)
+		.catch(Help.reportError('finding a home by its id'));
 }
