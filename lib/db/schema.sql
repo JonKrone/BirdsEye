@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS homes(
 	bedroom_count integer,
 	heater_type text,
 	heater_install_date text,
-	AC_type text,
-	AC_install_date text
+	ac_type text,
+	ac_install_date text
 );
 
 /*

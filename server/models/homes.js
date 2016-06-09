@@ -3,6 +3,12 @@ const Help = require('../server-helper');
 const db = require(__lib + 'db/connection');
 const Homes = module.exports;
 
+
+
+// TODO: deleteById
+
+
+
 /*
 	Create a home!
 
@@ -17,8 +23,8 @@ const Homes = module.exports;
 		bedroom_count <Number>
 		heater_type <String>
 		heater_install_date <Date>
-		AC_type <String>
-		AC_install_date <Date>
+		ac_type <String>
+		ac_install_date <Date>
 	}
 
 	@return: {
@@ -37,7 +43,12 @@ Homes.create = function(home) {
 
 // Fetch the home associated with @param _home_id
 Homes.findById = function(_home_id) {
+	const values = ['home_id', 'address', 'sqft', 'stories',
+		'bath_count', 'bedroom_count', 'heater_type',
+		'heater_install_date', 'ac_type', 'ac_install_date'];
+
 	return db('homes')
+		.returning(values)
 		.where({ home_id: _home_id })
 		.then(Help.first)
 		.catch(Help.reportError('finding a home by its id'));
@@ -48,7 +59,7 @@ Homes.updateById = function(_home_id, newHome) {
 	return db('homes')
 		.where({ home_id: _home_id })
 		.update(newHome)
-		.catch(reportError('updating a home by address'));
+		.catch(Help.reportError('updating a home by address'));
 }
 
 // Fetch the homes associated with @param _customer_id

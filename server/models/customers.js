@@ -3,6 +3,11 @@ const Help = require('../server-helper');
 const db = require(__lib + 'db/connection');
 const Customers = module.exports;
 
+
+// TODO: update, findById
+
+
+
 /*
 	Create a customer entry.
 

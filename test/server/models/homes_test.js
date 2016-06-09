@@ -13,42 +13,29 @@ describe('Homes model', function () {
 		heater_install_date: Date.now(),
 		ac_type: "Westerlies",
 		ac_install_date: Date.now(),
-	}
+	};
 
 	beforeEach_(function *() {
 		yield Help.clean(db, { mode: 'truncate' });
 	})
 
-	it_.only('should create a home', function*() {
+	it_('should create a home', function*() {
 		const home = yield Homes.create(treehouse);
 		expect(home).to.have.all.keys('home_id');
 	});
 
 	it_("should update a home's information", function*() {
-		const treehouse = {
+		const fortExt = {
+			sqft: 1663,
+			bath_count: 1,
+			stories: 2,
+		};
 
-		}
-
-		yield Customers.create(invalid)
-			.then(function() {
-				// Test fails upon entry into this callback.
-				expect(false).to.be.true
-			})
-			.catch(function(error) {
-				expect(error).to.exist;
-			});
-	});
-
-	it_('should delete customers by ID', function*() {
-		// create a customer
-		const robin = {
-			name: "Robin Ranger",
-			email: "robin@tree.house",
-			phone: "512" + "333" + "7777",
-		}
-		const customer = yield Customers.create(robin);
-
-		const numRemoved = yield Customers.deleteByEmail(customer.email);
-		expect(numRemoved).to.equal(1);
+		const home = yield Homes.create(treehouse);
+		yield Homes.updateById(home.home_id, fortExt);
+		const newHome = yield Homes.findById(home.home_id);
+		
+		expect(newHome.stories).to.equal(2);
+		expect(newHome.heater_type).to.equal("Volcano");
 	});
 });
