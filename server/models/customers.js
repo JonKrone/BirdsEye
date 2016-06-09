@@ -16,8 +16,8 @@ Customers.create = function(customer) {
 	// augment @param customer if need be
 
 	return db('customers').insert(customer)
-		.then(helper.first);
-		.catch(helper.reportError)
+		.then(helper.first)
+		.catch(helper.reportError('Creating customer'));
 }
 
 /*
@@ -41,6 +41,6 @@ Customers.deleteByEmail = function (email) {
 */
 function findByEmail(email) {
 	return db('customers').where({ email: email })
-		.then(first);
-		.catch(helper.reportError('Finding customer by email'))
+		.then(first)
+		.catch(helper.reportError('Finding customer by email'));
 }
