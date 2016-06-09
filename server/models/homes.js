@@ -40,7 +40,6 @@ Homes.create = function(customer_id, home) {
 		.then(Help.first)
 		.catch(Help.reportError('Creating home'))
 		.then(function(_home) {
-			console.log('*** _home:', _home);
 			return createCustomersHomes(customer_id, _home.home_id)
 				.then(() => _home);
 		})
