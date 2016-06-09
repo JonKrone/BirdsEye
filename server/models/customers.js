@@ -4,7 +4,7 @@ const db = require(__lib + 'db/connection');
 const Customers = module.exports;
 
 
-// TODO: update, findById
+// TODO: updateById (explicitly prevent updates to notes?), findById, fetchAll
 
 
 
@@ -21,21 +21,22 @@ Customers.create = function(customer) {
 	// augment @param customer if need be
 	// validation should take place here
 
-
 	return db('customers')
-		.returning(['email', 'name', 'phone', 'notes'])
+		.returning(['customer_id', 'email', 'name', 'phone', 'notes'])
 		.insert(customer)
 		.then(Help.first)
 		.catch(Help.reportError('Creating customer'));
 }
 
 /*
+	TODO: Replace this with deleteById
+
 	Remove the customer account (hopefully only one) associated with @param email <String>
 
 	This also removes associations with any homes (but does not delete the home).
 */
 Customers.deleteByEmail = function(email) {
-	return findByEmail(email)
+	return Help.findByEmail(email)
 		// .then(check that an email was found. Might be a helpful piece of information.)
 		.then(function(customer) {
 			return db('customers')
@@ -50,7 +51,7 @@ Customers.deleteByEmail = function(email) {
 }
 
 // Find customer by @param email
-function findByEmail(_email) {
+Customers.findByEmail = function(_email) {
 	return db('customers')
 		.where({ email: _email })
 		.then(Help.first)

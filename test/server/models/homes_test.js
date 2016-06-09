@@ -49,4 +49,5 @@ describe('Homes model', function () {
 		expect(newTreehouse.heater_type).to.equal("Volcano");
 	})
 
+	// TODO: Test Homes.ofCustomerId
 })
