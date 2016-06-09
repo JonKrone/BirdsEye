@@ -4,7 +4,7 @@ const db = require(__lib + 'db/connection');
 const Customers = module.exports;
 
 /*
-	Creates a customer entry in the database.
+	Creates a customer entry.
 
 	@param customer: {
 		name <String, required>

@@ -13,13 +13,12 @@ helper.first = (array) => array[0];
   it re-throws the error, continuing the error chain.
 
   example:
-	  asyncPromise
+	  async
 	    .catch(reportError('creating customer'))
 	    .catch(handleError);
 */
 helper.reportError = curry(function(description, error) {
-  console.error('\n*** Error ***');
-  console.error('***', description);
+  console.error('\n*** Error', description, '***');
   console.error('***', error, '\n');
 
   if (error instanceof Error) throw error;

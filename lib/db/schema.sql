@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS homes(
 	stories integer,
 	bath_count integer,
 	bedroom_count integer,
-	HV_type text,
-	HV_install_date date,
+	heater_type text,
+	heater_install_date date,
 	AC_type text,
 	AC_install_date date
 );
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS homes(
 * 		- Homes may change owners
 *			- Different members of the same home may comission consultations
 */
-CREATE TABLE IF NOT EXISTS customer_homes(
+CREATE TABLE IF NOT EXISTS customers_homes(
 	home_id integer REFERENCES homes,
 	customer_id integer REFERENCES customers
 );
