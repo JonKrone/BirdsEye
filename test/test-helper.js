@@ -6,7 +6,7 @@ global.__models = __dirname + '/../server/models';
 global.__lib = __dirname + '/../lib';
 
 // Mocha helpers to support coroutine tests
-const bb = require('bluebird');
+const Bluebird = require('bluebird');
 global.before_ = function(f) {
 	before( Bluebird.coroutine(f) );
 }
