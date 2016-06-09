@@ -35,7 +35,7 @@ Help.sendStatusAndData = R.curry(function (response, status, data) {
 });
 
 // TODO: rethink.
-// Send status and error information to client.
+// Send status and error description to client.
 Help.sendStatusAndError = R.curry(function (response, status, description, error) {
   try {
     Help.reportError(description, error);
@@ -47,6 +47,6 @@ Help.sendStatusAndError = R.curry(function (response, status, description, error
     // code in a finally block _always_ executes.
     // we use it so that regardless whether the reportError above throws
     // an error, we will always send the client a response.
-    return sendStatusAndData(response, status, error);
+    return sendStatusAndData(response, status, description);
   }
 });
