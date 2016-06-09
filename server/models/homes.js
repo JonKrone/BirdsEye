@@ -51,7 +51,7 @@ Homes.findById = function(_home_id) {
 		.returning(values)
 		.where({ home_id: _home_id })
 		.then(Help.first)
-		.catch(Help.reportError('finding a home by its id'));
+		.catch(Help.reportError('finding a home by id'));
 }
 
 // Update a home entry, selected and searched by @ param _home_id.
@@ -59,7 +59,14 @@ Homes.updateById = function(_home_id, newHome) {
 	return db('homes')
 		.where({ home_id: _home_id })
 		.update(newHome)
-		.catch(Help.reportError('updating a home by address'));
+		.catch(Help.reportError('updating a home by id'));
+}
+
+Homes.deleteById = function(_home_id) {
+	return db('homes')
+		.where({ home_id: _home_id })
+		.del()
+		.catch(Help.reportError('deleteing a home by id'));
 }
 
 // Fetch the homes associated with @param _customer_id

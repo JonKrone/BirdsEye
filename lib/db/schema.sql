@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS customers(
 );
 
 CREATE TABLE IF NOT EXISTS homes(
-	home_id SERIAL PRIMARY KEY,
+	home_id SERIAL PRIMARY KEY ON DELETE CASCADE,
 	address text, /* unique? */
 	sqft integer,
 	stories integer,
@@ -40,24 +40,24 @@ CREATE TABLE IF NOT EXISTS homes(
 *			- Different members of the same home may comission consultations
 */
 CREATE TABLE IF NOT EXISTS customers_homes(
-	home_id integer REFERENCES homes,
-	customer_id integer REFERENCES customers
+	home_id integer REFERENCES homes ON DELETE SET NULL,
+	customer_id integer REFERENCES customers ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS rooms(
-	room_id SERIAL PRIMARY KEY,
+	room_id SERIAL PRIMARY KEY ON DELETE CASCADE,
 	type text,
 	sqft integer,
 	window_count integer DEFAULT 0, /* for ease of entry, or no? */
 	story integer,
-	home_id integer REFERENCES homes
+	home_id integer REFERENCES homes ON DELETE SET NULL
 );
 
 /* store photos locally or submit to aws/imgur/etc? */
 CREATE TABLE IF NOT EXISTS images(
 	image_id SERIAL PRIMARY KEY,
 	image_url text NOT NULL,
-	customer_id integer REFERENCES customers NOT NULL,
-	home_id integer REFERENCES homes,
-	room_id integer REFERENCES rooms
+	customer_id integer REFERENCES customers ON DELETE SET NULL,
+	home_id integer REFERENCES homes ON DELETE SET NULL,
+	room_id integer REFERENCES rooms ON DELETE SET NULL
 );

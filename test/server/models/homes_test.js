@@ -25,14 +25,14 @@ describe('Homes model', function () {
 	});
 
 	it_("should update a home's information", function*() {
-		const fortExt = {
+		const extension = {
 			sqft: 1663,
 			bath_count: 1,
 			stories: 2,
 		};
 
 		const home = yield Homes.create(treehouse);
-		yield Homes.updateById(home.home_id, fortExt);
+		yield Homes.updateById(home.home_id, extension);
 		const newHome = yield Homes.findById(home.home_id);
 		
 		expect(newHome.stories).to.equal(2);
