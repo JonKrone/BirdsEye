@@ -1,5 +1,3 @@
-/* TODO: How to store general notes? */
-
 /*
 	Serial primary keys are more transparent and susceptible to attacks.
 	A more secure indexing system could use UUIDs.
@@ -18,11 +16,11 @@ CREATE TABLE IF NOT EXISTS customers(
 	name text NOT NULL check(char_length(name) > 0),
 	email text UNIQUE NOT NULL check(char_length(email) > 0),
 	phone text,
-	aspirations text[]
+	notes text[]
 );
 
 CREATE TABLE IF NOT EXISTS homes(
-	home_id SERIAL PRIMARY KEY ON DELETE CASCADE,
+	home_id SERIAL PRIMARY KEY,
 	address text, /* unique? */
 	sqft integer,
 	stories integer,
@@ -40,12 +38,12 @@ CREATE TABLE IF NOT EXISTS homes(
 *			- Different members of the same home may comission consultations
 */
 CREATE TABLE IF NOT EXISTS customers_homes(
-	home_id integer REFERENCES homes ON DELETE SET NULL,
-	customer_id integer REFERENCES customers ON DELETE SET NULL
+	home_id integer REFERENCES homes ON DELETE CASCADE,
+	customer_id integer REFERENCES customers ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS rooms(
-	room_id SERIAL PRIMARY KEY ON DELETE CASCADE,
+	room_id SERIAL PRIMARY KEY,
 	type text,
 	sqft integer,
 	window_count integer DEFAULT 0, /* for ease of entry, or no? */

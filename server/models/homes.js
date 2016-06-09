@@ -10,7 +10,7 @@ const Homes = module.exports;
 
 
 /*
-	Create a home!
+	Create a home and an entry in the customers_homes table.
 
 	Address is not a suitable key to reference specific homes.
 	Not sure what the better solution is at the moment.
@@ -31,14 +31,18 @@ const Homes = module.exports;
 		home_id: serial primary key
 	}
 */
-Homes.create = function(home) {
+Homes.create = function(customer_id, home) {
 	// validation should take place here
 
 	return db('homes')
 		.returning(['home_id'])
 		.insert(home)
 		.then(Help.first)
-		.catch(Help.reportError('Creating home'));
+		.catch(Help.reportError('Creating home'))
+		.then(function(_home) {
+			return createCustomersHomes(customer_id, home.home_id)
+				.then(() => _home);
+		})
 }
 
 // Fetch the home associated with @param _home_id
@@ -66,7 +70,8 @@ Homes.deleteById = function(_home_id) {
 	return db('homes')
 		.where({ home_id: _home_id })
 		.del()
-		.catch(Help.reportError('deleteing a home by id'));
+		.catch(Help.reportError('deleting a home by id'))
+		.then(() => deleteCustomersHomesById(_home_id));
 }
 
 // Fetch the homes associated with @param _customer_id
@@ -76,4 +81,24 @@ Homes.ofCustomerId = function(_customer_id) {
 		.select('home_id')
 		.map(Homes.findById)
 		.catch(Help.reportError('retrieving homes by customer id'))
+}
+
+// Create a customer:home entry in the customers_homes table.
+function createCustomersHomes(_customer_id, _home_id) {
+	const entry = {
+		customer_id: _customer_id,
+		home_id: _home_id,
+	};
+
+	return db('customers_homes')
+		.insert(entry)
+		.catch(Help.reportError('creating customers homes entry'));
+}
+
+// Remove all references of @param _home_id from customers_homes table.
+function deleteCustomersHomesById(_home_id) {
+	return db('customers_homes')
+		.where({ home_id: _home_id })
+		.del()
+		.catch(Help.reportError('deleting home from customers homes'));
 }

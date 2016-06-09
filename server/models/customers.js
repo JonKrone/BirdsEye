@@ -23,35 +23,44 @@ Customers.create = function(customer) {
 
 
 	return db('customers')
-		.returning(['email', 'name', 'phone', 'aspirations'])
+		.returning(['email', 'name', 'phone', 'notes'])
 		.insert(customer)
 		.then(Help.first)
 		.catch(Help.reportError('Creating customer'));
 }
 
 /*
-	Remove the customer accounts (hopefully only one)
-	associated with @param email <String>
+	Remove the customer account (hopefully only one) associated with @param email <String>
+
+	This also removes associations with any homes (but does not delete the home).
 */
 Customers.deleteByEmail = function(email) {
-	const userId = findByEmail(email)
-
 	return findByEmail(email)
 		// .then(check that an email was found. Might be a helpful piece of information.)
 		.then(function(customer) {
 			return db('customers')
 				.where({ customer_id: customer.customer_id })
-				.del();
+				.del()
+				.catch(Help.reportError('Deleting customer by email'))
+				.then(function(numDeleted) {
+					return deleteCustomersHomesById(customer.customer_id)
+						.then(() => numDeleted);
+				})
 		})
-		.catch(Help.reportError('Deleting customer by email'))
 }
 
-/*
-	Private utility to find customer by @param email
-*/
+// Find customer by @param email
 function findByEmail(_email) {
 	return db('customers')
 		.where({ email: _email })
 		.then(Help.first)
 		.catch(Help.reportError('Finding customer by email'));
+}
+
+// Delete entries with @param _customer_id from table customers_homes
+function deleteCustomersHomesById(_customer_id) {
+	return db('customers_homes')
+		.where({ customer_id: _customer_id })
+		.del()
+		.catch(Help.reportError('deleting customer from customers homes'));
 }

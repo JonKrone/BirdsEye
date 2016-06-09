@@ -2,6 +2,7 @@ const Help = require(TEST_HELPER);
 
 const db = require(__lib + '/db/connection');
 const Homes = require(__models + '/homes');
+const Customers = require(__models + '/customers');
 
 describe('Homes model', function () {
 	const treehouse = {
@@ -14,15 +15,22 @@ describe('Homes model', function () {
 		ac_type: "Westerlies",
 		ac_install_date: Date.now(),
 	};
+	const robin = {
+		name: "Robin Ranger",
+		email: "robin@tree.house",
+		phone: "512" + "333" + "7777",
+		notes: ['to be', 'or not', 'to be'],
+	}
 
 	beforeEach_(function *() {
 		yield Help.clean(db, { mode: 'truncate' });
 	})
 
 	it_('should create a home', function*() {
-		const home = yield Homes.create(treehouse);
+		const customer = yield Customers.create(robin);
+		const home = yield Homes.create(customer.customer_id, treehouse);
 		expect(home).to.have.all.keys('home_id');
-	});
+	})
 
 	it_("should update a home's information", function*() {
 		const extension = {
@@ -37,5 +45,6 @@ describe('Homes model', function () {
 		
 		expect(newHome.stories).to.equal(2);
 		expect(newHome.heater_type).to.equal("Volcano");
-	});
-});
+	})
+
+})
