@@ -4,7 +4,7 @@ const db = require(__lib + 'db/connection');
 const Customers = module.exports;
 
 /*
-	Creates a customer entry.
+	Create a customer entry.
 
 	@param customer: {
 		name <String, required>
@@ -25,7 +25,7 @@ Customers.create = function(customer) {
 }
 
 /*
-	Removes the customer accounts (hopefully only one)
+	Remove the customer accounts (hopefully only one)
 	associated with @param email <String>
 */
 Customers.deleteByEmail = function(email) {
@@ -42,11 +42,11 @@ Customers.deleteByEmail = function(email) {
 }
 
 /*
-	Private utility to find customer by @param email <String>
+	Private utility to find customer by @param email
 */
-function findByEmail(email) {
+function findByEmail(_email) {
 	return db('customers')
-		.where({ email: email })
+		.where({ email: _email })
 		.then(Help.first)
 		.catch(Help.reportError('Finding customer by email'));
 }

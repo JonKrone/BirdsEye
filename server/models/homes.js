@@ -5,7 +5,9 @@ const Customers = require('./customers');
 const Homes = module.exports;
 
 /*
-	Creates a home entry.
+	Create a home!
+
+	// TODO: WHAT IS THE unique, unchangeable reference for a home?
 
 	@param home: {
 		address <String>
@@ -28,18 +30,29 @@ Homes.create = function(home) {
 		.catch(Help.reportError('Creating home'));
 }
 
-// Fetch the home associated with @param home_id
-Homes.ofId = function(home_id) {
+/*
+	Update a home entry, selected and searched by @ param _address.
+	Address is not a suitable key to reference specific homes.
+	Not sure what the better solution is at the moment.
+*/
+Homes.updateByAddress = function(_address, newHome) {
 	return db('homes')
-		.where({ home_id: home_id })
+		.where({ address: _address })
+		.update(newHome);
+}
+
+// Fetch the home associated with @param _home_id
+Homes.ofId = function(_home_id) {
+	return db('homes')
+		.where({ home_id: _home_id })
 		.then(Help.first)
 		.catch(Help.reportError('finding a home by its id'));
 }
 
-// Fetch the homes associated with @param customer_id
-Homes.ofCustomerId = function(customer_id) {
+// Fetch the homes associated with @param _customer_id
+Homes.ofCustomerId = function(_customer_id) {
 	return db('customers_homes')
-		.where({ customer_id: customer_id })
+		.where({ customer_id: _customer_id })
 		.select('home_id')
 		.map(Homes.byId)
 		.catch(Help.reportError('retrieving homes by customer id'))
