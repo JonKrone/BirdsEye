@@ -15,19 +15,21 @@ describe('Homes model', function () {
 		ac_type: "Westerlies",
 		ac_install_date: Date.now(),
 	};
-	const robin = {
-		name: "Robin Ranger",
-		email: "robin@tree.house",
-		phone: "512" + "333" + "7777",
-		notes: ['to be', 'or not', 'to be'],
-	}
+	let customer;
 
 	beforeEach_(function *() {
 		yield Help.clean(db, { mode: 'truncate' });
+
+		const robin = {
+			name: "Robin Ranger",
+			email: "robin@tree.house",
+			phone: "512" + "333" + "7777",
+			notes: ['to be', 'or not', 'to be'],
+		};
+		customer = yield Customers.create(robin);
 	})
 
 	it_('should create a home', function*() {
-		const customer = yield Customers.create(robin);
 		const home = yield Homes.create(customer.customer_id, treehouse);
 		expect(home).to.have.all.keys('home_id');
 	})
@@ -39,12 +41,12 @@ describe('Homes model', function () {
 			stories: 2,
 		};
 
-		const home = yield Homes.create(treehouse);
+		const home = yield Homes.create(customer.customer_id, treehouse);
 		yield Homes.updateById(home.home_id, extension);
-		const newHome = yield Homes.findById(home.home_id);
+		const newTreehouse = yield Homes.findById(home.home_id);
 		
-		expect(newHome.stories).to.equal(2);
-		expect(newHome.heater_type).to.equal("Volcano");
+		expect(newTreehouse.stories).to.equal(2);
+		expect(newTreehouse.heater_type).to.equal("Volcano");
 	})
 
 })
