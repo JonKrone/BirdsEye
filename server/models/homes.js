@@ -38,7 +38,8 @@ Homes.create = function(home) {
 Homes.updateByAddress = function(_address, newHome) {
 	return db('homes')
 		.where({ address: _address })
-		.update(newHome);
+		.update(newHome)
+		.catch(reportError('updating a home by address'));
 }
 
 // Fetch the homes associated with @param _customer_id
