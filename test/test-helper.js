@@ -1,9 +1,15 @@
+const Help = module.exports;
+
+Help.clean = require('knex-cleaner').clean;
+
+
 // Make the `expect` function available in every test file
 global.expect = require('chai').expect;
 
-// Hoist global variables for easy referencing
+// Hoist paths for easy referencing
 global.__models = __dirname + '/../server/models';
 global.__lib = __dirname + '/../lib';
+
 
 // Mocha helpers to support coroutine tests
 const Bluebird = require('bluebird');
@@ -28,3 +34,4 @@ global.it_.only = function(description, f) {
 }
 
 // P.S. I am relatively uncomfortable bundling these helpers with global
+// I do this because it very nicely retains the standard syntax of Mocha
