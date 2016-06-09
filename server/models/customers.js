@@ -1,4 +1,4 @@
-const help = require('../server-helper');
+const Help = require('../server-helper');
 
 const db = require(__lib + 'db/connection');
 const Customers = module.exports;
@@ -15,9 +15,11 @@ const Customers = module.exports;
 Customers.create = function(customer) {
 	// augment @param customer if need be
 
-	return db('customers').insert(customer)
-		.then(help.first)
-		.catch(help.reportError('Creating customer'));
+	return db('customers')
+		.returning(['email', 'name', 'phone', 'aspirations'])
+		.insert(customer)
+		.then(Help.first)
+		.catch(Help.reportError('Creating customer'));
 }
 
 /*
@@ -33,14 +35,15 @@ Customers.deleteByEmail = function (email) {
 			return db('customers').where({ customer_id: customer.customer_id })
 				.del();
 		})
-		.catch(help.reportError('Deleting customer by email'))
+		.catch(Help.reportError('Deleting customer by email'))
 }
 
 /*
-	Find customer by @param email <String>
+	Private utility to find customer by @param email <String>
 */
 function findByEmail(email) {
-	return db('customers').where({ email: email })
+	return db('customers')
+		.where({ email: email })
 		.then(first)
-		.catch(help.reportError('Finding customer by email'));
+		.catch(Help.reportError('Finding customer by email'));
 }

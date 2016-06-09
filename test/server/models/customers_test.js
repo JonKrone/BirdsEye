@@ -15,6 +15,7 @@ describe('Customers model', function () {
 			name: "Robin Ranger",
 			email: "robin@tree.house",
 			phone: "512" + "333" + "7777",
+			aspirations: ['to be', 'or not', 'to be'],
 		}
 
 		const customer = yield Customers.create(robin);

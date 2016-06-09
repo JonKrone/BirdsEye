@@ -1,5 +1,9 @@
 const Help = module.exports;
 
+/*
+	Package to maintain a blank database between tests.
+	Interesting alternative: ssun.azurewebsites.net/testing-with-knex-and-mocha/
+*/
 Help.clean = require('knex-cleaner').clean;
 
 
