@@ -2,7 +2,6 @@ const Help = require(TEST_HELPER);
 
 const db = require(__lib + '/db/connection');
 const Customers = require(__models + '/customers');
-const cleaner = require('knex-cleaner');
 
 describe('Customers model', function () {
 
