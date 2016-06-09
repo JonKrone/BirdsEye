@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS customers(
 	customer_id SERIAL PRIMARY KEY,
-	name text NOT NULL,
-	email text UNIQUE NOT NULL,
+	name text NOT NULL check(char_length(name) > 0),
+	email text UNIQUE NOT NULL check(char_length(email) > 0),
 	phone text,
 	aspirations text[]
 );

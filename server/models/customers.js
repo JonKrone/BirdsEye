@@ -14,6 +14,8 @@ const Customers = module.exports;
 */
 Customers.create = function(customer) {
 	// augment @param customer if need be
+	// validation should take place here
+
 
 	return db('customers')
 		.returning(['email', 'name', 'phone', 'aspirations'])
@@ -26,13 +28,14 @@ Customers.create = function(customer) {
 	Removes the customer accounts (hopefully only one)
 	associated with @param email <String>
 */
-Customers.deleteByEmail = function (email) {
+Customers.deleteByEmail = function(email) {
 	const userId = findByEmail(email)
 
 	return findByEmail(email)
 		// .then(check that an email was found. Might be a helpful piece of information.)
 		.then(function(customer) {
-			return db('customers').where({ customer_id: customer.customer_id })
+			return db('customers')
+				.where({ customer_id: customer.customer_id })
 				.del();
 		})
 		.catch(Help.reportError('Deleting customer by email'))
@@ -44,6 +47,6 @@ Customers.deleteByEmail = function (email) {
 function findByEmail(email) {
 	return db('customers')
 		.where({ email: email })
-		.then(first)
+		.then(Help.first)
 		.catch(Help.reportError('Finding customer by email'));
 }

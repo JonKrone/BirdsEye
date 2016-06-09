@@ -19,7 +19,6 @@ describe('Customers model', function () {
 		}
 
 		const customer = yield Customers.create(robin);
-		console.log('created customer:', customer);
 
 		expect(customer).to.have.all.keys('name', 'email', 'phone', 'aspirations');
 		// expect(customer.aspirations).to.have.lengthOf(0);
@@ -31,10 +30,9 @@ describe('Customers model', function () {
 			email: "",
 		};
 
-		const customer = yield Customers.create(invalid);
-		console.log('invalid customer:', customer);
-		expect(customer).to.throw(Error);
-		expect(customer).to.not.be.okay;
+		yield Customers.create(invalid)
+			.then(() =>	expect(false).to.be.true) // should always skip this then
+			.catch((error) => expect(error).to.exist);
 	});
 
 	it_('should delete customers by ID', function*() {
@@ -46,11 +44,7 @@ describe('Customers model', function () {
 		}
 		const customer = yield Customers.create(robin);
 
-		const removed = yield Customers.deleteById(customer.customer_id);
-		expect(removed).to.be.true;
-
-		const customerCount = yield Customers.count();
-		expect(customerCount).to.equal(0);
+		const numRemoved = yield Customers.deleteByEmail(customer.email);
+		expect(numRemoved).to.equal(1);
 	});
-
 });
