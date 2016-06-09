@@ -1,31 +1,36 @@
 /* TODO: How to store general notes? */
 
+/*
+	Serial keys are more transparent and susceptible to attacks.
+	A more secure indexing system could use UUIDs.
+*/
+
 CREATE SCHEMA BirdsEye
 
 CREATE TABLE IF NOT EXISTS BirdsEye.users(
 	user_id integer PRIMARY KEY,
-	username varchar(50) UNIQUE NOT NULL,
+	username text UNIQUE NOT NULL,
 	pass_hash varchar(246) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS BirdsEye.customers(
 	customer_id integer PRIMARY KEY,
-	name varchar(50) NOT NULL,
-	email varchar(50) NOT NULL,
+	name text NOT NULL,
+	email text UNIQUE NOT NULL,
 	phone integer,
 	aspirations text[]
 );
 
 CREATE TABLE IF NOT EXISTS BirdsEye.homes(
 	home_id integer PRIMARY KEY,
-	address varchar(150), /* unique? */
+	address text, /* unique? */
 	sqft integer,
 	stories integer,
 	bath_count integer,
 	bedroom_count integer,
-	HV_type varchar(50),
+	HV_type text,
 	HV_install_date date,
-	AC_type varchar(50),
+	AC_type text,
 	AC_install_date date,
 );
 
@@ -41,7 +46,7 @@ CREATE TABLE IF NOT EXISTS BirdsEye.customer_homes(
 
 CREATE TABLE IF NOT EXISTS BirdsEye.rooms(
 	room_id integer PRIMARY KEY,
-	type varchar(50),
+	type text,
 	sqft integer,
 	window_count integer DEFAULT 0, /* for ease of entry, or no? */
 	story integer,
