@@ -1,4 +1,6 @@
+## npm files and directories
 node_modules/
+npm-debug.log
 
-# postgres server directory
+## postgres server directory
 db/

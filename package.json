@@ -4,13 +4,16 @@
   "description": "The backend service for maintaining client infomation and performing Home consultations.",
   "main": "index.js",
   "scripts": {
+    "start": "node server/index.js",
     "test": "./node_modules/.bin/mocha --recursive -r test/test-init.js"
   },
   "author": "Jonathan Krone <jonathankrone@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "knex": "^0.11.5",
+    "morgan": "^1.7.0",
     "pg": "^5.0.0",
     "ramda": "^0.21.0"
   },
