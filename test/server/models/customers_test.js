@@ -19,9 +19,7 @@ describe('Customers model', function () {
 		}
 
 		const customer = yield Customers.create(robin);
-
 		expect(customer).to.have.all.keys('name', 'email', 'phone', 'aspirations');
-		// expect(customer.aspirations).to.have.lengthOf(0);
 	});
 
 	it_('should require a name and email', function*() {
@@ -31,8 +29,13 @@ describe('Customers model', function () {
 		};
 
 		yield Customers.create(invalid)
-			.then(() =>	expect(false).to.be.true) // should always skip this then
-			.catch((error) => expect(error).to.exist);
+			.then(function() {
+				// Test fails upon entry into this callback.
+				expect(false).to.be.true
+			})
+			.catch(function(error) {
+				expect(error).to.exist;
+			});
 	});
 
 	it_('should delete customers by ID', function*() {
