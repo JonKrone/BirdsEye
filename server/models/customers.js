@@ -36,24 +36,18 @@ Customers.all = function() {
 }
 
 /*
-	TODO: Replace this with deleteById
-
 	Remove the customer account (hopefully only one) associated with @param email <String>
 
 	This also removes associations with any homes (but does not delete the home).
 */
-Customers.deleteByEmail = function(email) {
-	return Help.findByEmail(email)
-		// .then(check that an email was found. Might be a helpful piece of information.)
-		.then(function(customer) {
-			return db('customers')
-				.where({ customer_id: customer.customer_id })
-				.del()
-				.catch(Help.reportError('Deleting customer by email'))
-				.then(function(numDeleted) {
-					return deleteCustomersHomesById(customer.customer_id)
-						.then(() => numDeleted);
-				})
+Customers.deleteById = function(_customer_id) {
+	return db('customers')
+		.where({ customer_id: _customer_id })
+		.del()
+		.catch(Help.reportError('Deleting customer by email'))
+		.then(function(numDeleted) {
+			return deleteCustomersHomesById(_customer_id)
+				.then(() => numDeleted);
 		})
 }
 

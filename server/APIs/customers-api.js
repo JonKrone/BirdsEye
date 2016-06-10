@@ -34,6 +34,17 @@ CustomersAPI.post('/', function(req, res) {
 
 /*
 	Fetch a list of all customers
+
+	@return via response: [
+		{
+			customer_id: <Number>,
+			name: <String>,
+			email: <String>,
+			phone: <String>,
+			notes: <String>,
+		},
+		...
+	]
 */
 CustomersAPI.get('/', function(req, res) {
 	Customers.all()
