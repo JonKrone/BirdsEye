@@ -50,6 +50,8 @@ CustomersAPI.post('/', function(req, res) {
 	{ error: <String> }
 */
 CustomersAPI.get('/', function(req, res) {
+	// include an image from the images table
+
 	Customers.all()
 		.then(Help.sendStatusAndData(res, 200))
 		.catch(Help.sendStatusAndError(res, 500, 'Server error fetching all customers'));

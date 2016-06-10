@@ -25,6 +25,8 @@ Customers.create = function(customer) {
 
 // Fetch a list of all customers.
 Customers.all = function() {
+	// Perhaps a join with the images table to provide a 'profile' picture
+
 	return db('customers')
 		.select('*')
 		.catch(Help.reportError('Fetching all customers'));
