@@ -1,5 +1,6 @@
 const Help = require('../server-helper');
 const Customers = require(__models + '/customers');
+const Homes = require(__models + '/homes');
 
 const CustomersAPI = require('express').Router();
 const homesAPI = require('./homes-api');
@@ -58,6 +59,8 @@ CustomersAPI.get('/', function(req, res) {
 });
 
 /*
+	// example of downside building bottom -> up. This route may not be needed.
+
 	Find a customer profile by customer_id.
 
 	@param req.params.customer_id: <Number>
@@ -82,33 +85,6 @@ CustomersAPI.get('/:customer_id', function (req, res) {
     .then(Help.sendStatusAndData(res, 200))
     .catch(Help.sendStatusAndError(res, 500, 'Server error getting a customer'));
 });
-
-/*
-	Fetch a list of homes associated with @param customer_id.
-
-	@return via response: [
-		{
-			home_id: <Number>,
-			address: <String>,
-			sqft: <Number>,
-			stories: <Number>,
-			bath_count: <Number>,
-			bedroom_count: <Number>,
-			heater_type: <String>,
-			heater_install_date: <String>,
-			ac_type: <Number>,
-			ac_install_date: <String>,
-		},
-		...
-	]
-	OR
-	{ error: <String> }
-*/
-CustomersAPI.get('/:customer_id/homes', funciton(req, res) {
-	Homes.ofCustomerId(req.params.customer_id)
-		.then(Help.sendStatusAndData(res, 200))
-		.catch(Help.sendStatusAndError(res, 500, 'Server error getting all homes of customer'))
-})
 
 /*
 	NOT IMPLEMENTED IN MODEL
@@ -165,3 +141,59 @@ CustomersAPI.put('/:customer_id', function(req, res) {
 		.then(Help.sendStatus(res, 200))
 		.catch(Help.sendStatusAndError(res, 500, 'Server error updating customer'));
 })
+
+/*
+	Fetch a list of homes associated with @param customer_id.
+
+	@return via response: [
+		{
+			home_id: <Number>,
+			address: <String>,
+			sqft: <Number>,
+			stories: <Number>,
+			bath_count: <Number>,
+			bedroom_count: <Number>,
+			heater_type: <String>,
+			heater_install_date: <String>,
+			ac_type: <Number>,
+			ac_install_date: <String>,
+		},
+		...
+	]
+	OR
+	{ error: <String> }
+*/
+CustomersAPI.get('/:customer_id/homes', function(req, res) {
+	Homes.ofCustomerId(req.params.customer_id)
+		.then(Help.sendStatusAndData(res, 200))
+		.catch(Help.sendStatusAndError(res, 500, 'Server error getting all homes of customer'))
+});
+
+/*
+	Create a new Home for customer @param customer_id.
+
+	@param req.body: {
+		home: {
+			address <String>,
+			sqft <Number>,
+			stories <Number>,
+			bath_count <Number>,
+			bedroom_count <Number>,
+			heater_type <String>,
+			heater_install_date <String>,
+			ac_type <Number>,
+			ac_install_date <String>,
+		}
+	}
+
+	@return via response {
+		home_id: <Number>,
+	}
+	OR
+	{ error: <String> }
+*/
+CustomersAPI.post('/:customer_id/homes', function(req, res) {
+	Homes.create(req.params.customer_id, req.body.home)
+		.then(Help.sendStatusAndData(res, 200))
+		.catch(Help.sendStatusAndError(res, 500, 'Server error creating customer'));
+});
