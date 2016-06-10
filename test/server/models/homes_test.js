@@ -15,7 +15,8 @@ describe('Homes model', function () {
 		ac_type: "Westerlies",
 		ac_install_date: Date.now(),
 	};
-	let customer;
+	let customer1;
+	let customer2;
 
 	beforeEach_(function *() {
 		yield Help.clean(db, { mode: 'truncate' });
@@ -26,11 +27,15 @@ describe('Homes model', function () {
 			phone: "512" + "333" + "7777",
 			notes: ['to be', 'or not', 'to be'],
 		};
-		customer = yield Customers.create(robin);
+		const ginger = {
+			name: "Gengibre",
+		}
+		customer1 = yield Customers.create(robin);
+		customer2 = yield Customers.create(ginger);
 	})
 
 	it_('should create a home', function*() {
-		const home = yield Homes.create(customer.customer_id, treehouse);
+		const home = yield Homes.create(customer1.customer_id, treehouse);
 		expect(home).to.have.all.keys('home_id');
 	})
 
@@ -41,7 +46,7 @@ describe('Homes model', function () {
 			stories: 2,
 		};
 
-		const home = yield Homes.create(customer.customer_id, treehouse);
+		const home = yield Homes.create(customer1.customer_id, treehouse);
 		yield Homes.updateById(home.home_id, extension);
 		const newTreehouse = yield Homes.findById(home.home_id);
 		
@@ -49,5 +54,12 @@ describe('Homes model', function () {
 		expect(newTreehouse.heater_type).to.equal("Volcano");
 	})
 
-	// TODO: Test Homes.ofCustomerId
+	it_("should retrieve a list of homes associated with a customer", function*() {
+		const customer1Homes = yield Homes.ofCustomerId(customer1.customer_id);
+		expect(customer1Homes).to.have.lengthOf(0);
+
+		yield Homes.create(customer1.customer_id, treehouse);
+		const customer1Homes = yield Homes.ofCustomerId(customer1.customer_id);
+		expect(customer1Homes).to.have.lengthOf(1);
+	})
 })
