@@ -60,7 +60,7 @@ Customers.findByEmail = function(_email) {
 		.where({ email: _email })
 		.then(Help.first)
 		.catch(Help.reportError('Finding customer by email'));
-};;;;;;;;
+};
 
 // Delete entries with @param _customer_id from table customers_homes
 function deleteCustomersHomesById(_customer_id) {

@@ -2,6 +2,7 @@ const Help = require('../server-helper');
 const Customers = require(__models + '/customers');
 
 const CustomersAPI = require('express').Router();
+const homesAPI = require('./homes-api');
 
 module.exports = CustomersAPI;
 
@@ -70,15 +71,42 @@ CustomersAPI.get('/', function(req, res) {
 	{ error <String> }
 
 	// I have an unfounded preference for passing information in the body rather than
-	// URL params. It is done in this case to more easily differentiate from a GET to '/'
+	// URL params. Params are used in this case to more easily differentiate from a GET to '/'
 	// for all customers. A difference may be: passing via params indicates manipulation to
 	// a specific instance of the struct represented at the endpoint. 
 */
 CustomersAPI.get('/:customer_id', function (req, res) {
   Customers.findById(req.params.customer_id)
     .then(Help.sendStatusAndData(res, 200))
-    .catch(Help.sendStatusAndError(res, 500, 'Server error getting all messages'));
+    .catch(Help.sendStatusAndError(res, 500, 'Server error getting a customer'));
 });
+
+/*
+	Fetch a list of homes associated with @param customer_id.
+
+	@return via response: [
+		{
+			home_id: <Number>,
+			address: <String>,
+			sqft: <Number>,
+			stories: <Number>,
+			bath_count: <Number>,
+			bedroom_count: <Number>,
+			heater_type: <String>,
+			heater_install_date: <String>,
+			ac_type: <Number>,
+			ac_install_date: <String>,
+		},
+		...
+	]
+	OR
+	{ error: <String> }
+*/
+CustomersAPI.get('/:customer_id/homes', funciton(req, res) {
+	Homes.ofCustomerId(req.params.customer_id)
+		.then(Help.sendStatusAndData(res, 200))
+		.catch(Help.sendStatusAndError(res, 500, 'Server error getting all homes of customer'))
+})
 
 /*
 	NOT IMPLEMENTED IN MODEL
