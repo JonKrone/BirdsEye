@@ -27,11 +27,12 @@ describe('Homes model', function () {
 			phone: "512" + "333" + "7777",
 			notes: ['to be', 'or not', 'to be'],
 		};
-		const ginger = {
-			name: "Gengibre",
+		const arya = {
+			name: "No One",
+			email: "Cat@the.canals"
 		}
 		customer1 = yield Customers.create(robin);
-		customer2 = yield Customers.create(ginger);
+		customer2 = yield Customers.create(arya);
 	})
 
 	it_('should create a home', function*() {
@@ -55,11 +56,14 @@ describe('Homes model', function () {
 	})
 
 	it_("should retrieve a list of homes associated with a customer", function*() {
-		const customer1Homes = yield Homes.ofCustomerId(customer1.customer_id);
+		let customer1Homes = yield Homes.ofCustomerId(customer1.customer_id);
 		expect(customer1Homes).to.have.lengthOf(0);
 
 		yield Homes.create(customer1.customer_id, treehouse);
-		const customer1Homes = yield Homes.ofCustomerId(customer1.customer_id);
+		customer1Homes = yield Homes.ofCustomerId(customer1.customer_id);
 		expect(customer1Homes).to.have.lengthOf(1);
+
+		customer2Homes = yield Homes.ofCustomerId(customer2.customer_id);
+		expect(customer2Homes).to.have.lengthOf(0);
 	})
 })

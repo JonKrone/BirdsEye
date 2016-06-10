@@ -79,8 +79,7 @@ Homes.deleteById = function(_home_id) {
 Homes.ofCustomerId = function(_customer_id) {
 	return db('customers_homes')
 		.where({ customer_id: _customer_id })
-		.select('home_id')
-		.map(Homes.findById)
+		.map((entry) => Homes.findById(entry.home_id))
 		.catch(Help.reportError('retrieving homes by customer id'))
 }
 
