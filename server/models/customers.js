@@ -51,6 +51,14 @@ Customers.deleteById = function(_customer_id) {
 		})
 }
 
+// Update a customer associated with @param _customer_id
+Customers.updateById = function(_customer_id, updates) {
+	return db('customers')
+		.where({ customer_id: _home_id })
+		.update(updates)
+		.catch(Help.reportError('updating a customer by id'));
+}
+
 // Find customer by @param email
 Customers.findByEmail = function(_email) {
 	return db('customers')
@@ -64,5 +72,5 @@ function deleteCustomersHomesById(_customer_id) {
 	return db('customers_homes')
 		.where({ customer_id: _customer_id })
 		.del()
-		.catch(Help.reportError('deleting customer from customers homes'));
+		.catch(Help.reportError('Deleting customer from customers homes'));
 }

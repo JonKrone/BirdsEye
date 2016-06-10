@@ -45,6 +45,8 @@ CustomersAPI.post('/', function(req, res) {
 		},
 		...
 	]
+	OR
+	{ error: <String> }
 */
 CustomersAPI.get('/', function(req, res) {
 	Customers.all()
@@ -100,9 +102,7 @@ CustomersAPI.post('/note', function(req, res) {
 });
 
 /*
-	NOT IMPLEMENTED IN MODEL
-
-	Update a customer entry. Do not update notes.
+	Update a customer entry. For posterity, do not update notes.
 
 	@param req.body: {
 		customer_id: <Number>,

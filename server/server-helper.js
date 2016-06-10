@@ -18,7 +18,7 @@ Help.first = (array) => array[0];
 	    .catch(handleError);
 */
 Help.reportError = R.curry(function(description, error) {
-  console.error('\n*** Error', description, '***');
+  console.error('\n*** Error!', description, '***');
   console.error('***', error, '\n');
 
   if (error instanceof Error) throw error;
