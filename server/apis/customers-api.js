@@ -1,5 +1,5 @@
 const Help = require('../server-helper');
-const Customers = require(__models + '/message');
+const Customers = require(__models + '/customers');
 
 const CustomersAPI = require('express').Router();
 
@@ -28,8 +28,8 @@ module.exports = CustomersAPI;
 */
 CustomersAPI.post('/', function(req, res) {
 	Customers.create(req.body.customer)
-		.then(sendStatusAndData(res, 200))
-		.catch(sendStatusAndError(res, 500, 'Server error creating customer'));
+		.then(Help.sendStatusAndData(res, 200))
+		.catch(Help.sendStatusAndError(res, 500, 'Server error creating customer'));
 });
 
 /*
@@ -50,17 +50,14 @@ CustomersAPI.post('/', function(req, res) {
 */
 CustomersAPI.get('/', function(req, res) {
 	Customers.all()
-		.then(sendStatusAndData(res, 200))
-		.catch(sendStatusAndError(res, 500, 'Server error fetching all customers'));
-})
-
+		.then(Help.sendStatusAndData(res, 200))
+		.catch(Help.sendStatusAndError(res, 500, 'Server error fetching all customers'));
+});
 
 /*
 	Find a customer profile by customer_id.
 
-	@param req.params: {
-		customer_id: <Number>,
-	}
+	@param req.params.customer_id: <Number>
 
 	@return via response: { 
 		customer_id <Number>,
@@ -71,11 +68,16 @@ CustomersAPI.get('/', function(req, res) {
 	}
 	OR
 	{ error <String> }
+
+	// I have an unfounded preference for passing information in the body rather than
+	// URL params. It is done in this case to more easily differentiate from a GET to '/'
+	// for all customers. A difference may be: passing via params indicates manipulation to
+	// a specific instance of the struct represented at the endpoint. 
 */
 CustomersAPI.get('/:customer_id', function (req, res) {
   Customers.findById(req.params.customer_id)
-    .then(sendStatusAndData(res, 200))
-    .catch(sendStatusAndError(res, 500, 'Server error getting all messages'));
+    .then(Help.sendStatusAndData(res, 200))
+    .catch(Help.sendStatusAndError(res, 500, 'Server error getting all messages'));
 });
 
 /*
@@ -97,15 +99,15 @@ CustomersAPI.post('/note', function(req, res) {
 	const note = req.body.note;
 
 	Customers.createNote(customer_id, note)
-		.then(sendStatus(res, 200))
-		.catch(sendStatusAndError(res, 500, 'Server error creating note'));
+		.then(Help.sendStatus(res, 200))
+		.catch(Help.sendStatusAndError(res, 500, 'Server error creating note'));
 });
 
 /*
 	Update a customer entry. For posterity, do not update notes.
 
+	@param req.params.customer_id: <number>
 	@param req.body: {
-		customer_id: <Number>,
 		customer: {
 			name: <String>,
 			email: <String>,
@@ -122,14 +124,14 @@ CustomersAPI.post('/note', function(req, res) {
 	OR
 	{ error: <String> }
 */
-CustomersAPI.put('/', function(req, res) {
-	const customer_id = req.body.customer_id;
+CustomersAPI.put('/:customer_id', function(req, res) {
+	const customer_id = req.params.customer_id;
 	const customer = req.body.customer;
 
 	// More of a thought than a concern. Don't want to/probably can't update a primary key.
 	if ('customer_id' in customer) delete customer['customer_id'];
 
 	Customers.updateById(customer_id, customer)
-		.then(sendStatusAndData(res, 200))
-		.catch(sendStatusAndError(res, 500, 'Server error updating customer'));
+		.then(Help.sendStatus(res, 200))
+		.catch(Help.sendStatusAndError(res, 500, 'Server error updating customer'));
 })

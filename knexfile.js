@@ -15,7 +15,7 @@ module.exports = {
     // seeds: {
     //   directory: './lib/seeders',
     // },
-    debug: false, // verbose database operations
+    debug: true, // verbose database operations
   },
   test: {
     client: 'postgresql',

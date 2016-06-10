@@ -3,6 +3,7 @@ const Help = module.exports;
 
 // Hoist global variables for easy referencing
 global.__lib = __dirname + '/../lib/';
+global.__models = __dirname + '/models/';
 
 // Return the first element of a collection. Frequently useful for DB models.
 Help.first = (array) => array[0];
@@ -47,6 +48,6 @@ Help.sendStatusAndError = R.curry(function (response, status, description, error
     // code in a finally block _always_ executes.
     // we use it so that regardless whether the reportError above throws
     // an error, we will always send the client a response.
-    return sendStatusAndData(response, status, { error: description });
+    return Help.sendStatusAndData(response, status, { error: description });
   }
 });

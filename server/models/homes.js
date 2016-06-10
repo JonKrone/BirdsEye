@@ -3,12 +3,6 @@ const Help = require('../server-helper');
 const db = require(__lib + 'db/connection');
 const Homes = module.exports;
 
-
-
-// TODO: deleteById
-
-
-
 /*
 	Create a home and an entry in the customers_homes table.
 

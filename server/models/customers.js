@@ -2,11 +2,7 @@ const Help = require('../server-helper');
 
 const db = require(__lib + 'db/connection');
 const Customers = module.exports;
-
-
-// TODO: updateById (explicitly prevent updates to notes?), findById, fetchAll
-
-
+// TODO: findById
 
 /*
 	Create a customer entry.
@@ -18,7 +14,6 @@ const Customers = module.exports;
 	}
 */
 Customers.create = function(customer) {
-	// augment @param customer if need be
 	// validation should take place here
 
 	return db('customers')
@@ -26,17 +21,17 @@ Customers.create = function(customer) {
 		.insert(customer)
 		.then(Help.first)
 		.catch(Help.reportError('Creating customer'));
-}
+};
 
 // Fetch a list of all customers.
 Customers.all = function() {
 	return db('customers')
 		.select('*')
 		.catch(Help.reportError('Fetching all customers'));
-}
+};
 
 /*
-	Remove the customer account (hopefully only one) associated with @param email <String>
+	Remove the customer account associated with @param email <String>
 
 	This also removes associations with any homes (but does not delete the home).
 */
@@ -49,15 +44,15 @@ Customers.deleteById = function(_customer_id) {
 			return deleteCustomersHomesById(_customer_id)
 				.then(() => numDeleted);
 		})
-}
+};
 
 // Update a customer associated with @param _customer_id
 Customers.updateById = function(_customer_id, updates) {
 	return db('customers')
-		.where({ customer_id: _home_id })
+		.where({ customer_id: _customer_id })
 		.update(updates)
 		.catch(Help.reportError('updating a customer by id'));
-}
+};
 
 // Find customer by @param email
 Customers.findByEmail = function(_email) {
@@ -65,7 +60,7 @@ Customers.findByEmail = function(_email) {
 		.where({ email: _email })
 		.then(Help.first)
 		.catch(Help.reportError('Finding customer by email'));
-}
+};;;;;;;;
 
 // Delete entries with @param _customer_id from table customers_homes
 function deleteCustomersHomesById(_customer_id) {

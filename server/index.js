@@ -33,9 +33,9 @@ if (process.env.NODE_ENV !== 'test') {
 
   // begin the api structure
   const customersAPI = require('./apis/customers-api');
-  const homesAPI = require('./apis/homes-api');
+  // const homesAPI = require('./apis/homes-api');
   routes.use('/customers', customersAPI);
-  routes.use('/homes', homesAPI);
+  // routes.use('/homes', homesAPI);
 
   //Catch-all Route (needs to go last so it doesn't interfere with other routes)
   routes.get('/*', function (req, res) {
