@@ -28,6 +28,13 @@ Customers.create = function(customer) {
 		.catch(Help.reportError('Creating customer'));
 }
 
+// Fetch a list of all customers.
+Customers.all = function() {
+	return db('customers')
+		.select('*')
+		.catch(Help.reportError('Fetching all customers'));
+}
+
 /*
 	TODO: Replace this with deleteById
 

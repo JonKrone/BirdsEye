@@ -36,7 +36,9 @@ CustomersAPI.post('/', function(req, res) {
 	Fetch a list of all customers
 */
 CustomersAPI.get('/', function(req, res) {
-	// TODO
+	Customers.all()
+		.then(sendStatusAndData(res, 200))
+		.catch(sendStatusAndError(res, 500, 'Server error fetching all customers'));
 })
 
 
