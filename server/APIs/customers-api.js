@@ -6,31 +6,6 @@ const CustomersAPI = require('express').Router();
 module.exports = CustomersAPI;
 
 /*
-	Find a customer profile by email address.
-
-	@param req.body: {
-		email: <String>
-	}
-
-	@return via response: { 
-		customer_id <Number>,
-		email <String>,
-		name <String>,
-		phone <String>,
-		notes <String[]>,
-	}
-	OR
-	{ error <String> }
-*/
-CustomersAPI.get('/', function (req, res) {
-	const email = req.body.email;
-
-  Customers.findByEmail(email)
-    .then(sendStatusAndData(res, 200))
-    .catch(sendStatusAndError(res, 500, 'Server error getting all messages'));
-});
-
-/*
 	Create a new customer.
 
 	@param req.body: {
@@ -52,13 +27,36 @@ CustomersAPI.get('/', function (req, res) {
 	{ error: <String> }
 */
 CustomersAPI.post('/', function(req, res) {
-	const customer = req.body.customer;
-
-	Customers.create(customer)
+	Customers.create(req.body.customer)
 		.then(sendStatusAndData(res, 200))
 		.catch(sendStatusAndError(res, 500, 'Server error creating customer'));
 });
 
+/*
+	Fetch a list of all customers
+
+/*
+	Find a customer profile by customer_id.
+
+	@param req.params: {
+		customer_id: <Number>,
+	}
+
+	@return via response: { 
+		customer_id <Number>,
+		email <String>,
+		name <String>,
+		phone <String>,
+		notes <String[]>,
+	}
+	OR
+	{ error <String> }
+*/
+CustomersAPI.get('/:customer_id', function (req, res) {
+  Customers.findById(req.params.customer_id)
+    .then(sendStatusAndData(res, 200))
+    .catch(sendStatusAndError(res, 500, 'Server error getting all messages'));
+});
 
 /*
 	NOT IMPLEMENTED IN MODEL
@@ -69,14 +67,14 @@ CustomersAPI.post('/', function(req, res) {
 	
 	@param req.body: {
 		customer_id: <Number>,
-		content: <String>,
+		note: <String>,
 	}
 
 	@return via response: status 200 or 500 with { error: <String> }
 */
 CustomersAPI.post('/note', function(req, res) {
 	const customer_id = req.body.customer_id;
-	const note = req.body.content;
+	const note = req.body.note;
 
 	Customers.createNote(customer_id, note)
 		.then(sendStatus(res, 200))
