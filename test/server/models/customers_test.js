@@ -10,14 +10,29 @@ describe('Customers model', function () {
 		phone: "512" + "333" + "7777",
 		notes: ['to be', 'or not', 'to be'],
 	}
+	const arya = {
+		name: "No One",
+		email: "Cat@the.canals"
+	}
 
 	beforeEach_(function *() {
 		yield Help.clean(db, { mode: 'truncate' });
-	})
+	});
 
 	it_('should create a customer', function*() {
 		const customer = yield Customers.create(robin);
 		expect(customer).to.have.all.keys('customer_id', 'name', 'email', 'phone', 'notes');
+	});
+
+	it_('should retrieve a list of all customers', function*() {
+		let customerCount = yield Customers.all()
+		expect(customerCount).to.have.lengthOf(0);
+
+		yield Customers.create(robin);
+		yield Customers.create(arya);
+
+		customerCount = yield Customers.all();
+		expect(customerCount).to.have.lengthOf(2);
 	});
 
 	it_('should require a name and email', function*() {
