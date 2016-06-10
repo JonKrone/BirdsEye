@@ -66,6 +66,7 @@ Homes.updateById = function(_home_id, newHome) {
 		.catch(Help.reportError('updating a home by id'));
 }
 
+// Remove the home entry associated with @param _home_id
 Homes.deleteById = function(_home_id) {
 	return db('homes')
 		.where({ home_id: _home_id })

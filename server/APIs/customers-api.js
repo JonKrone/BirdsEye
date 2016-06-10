@@ -34,6 +34,11 @@ CustomersAPI.post('/', function(req, res) {
 
 /*
 	Fetch a list of all customers
+*/
+CustomersAPI.get('/', function(req, res) {
+	// TODO
+})
+
 
 /*
 	Find a customer profile by customer_id.
