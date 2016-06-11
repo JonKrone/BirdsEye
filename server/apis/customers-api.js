@@ -140,7 +140,7 @@ CustomersAPI.put('/:customer_id', function(req, res) {
 	Customers.updateById(customer_id, customer)
 		.then(Help.sendStatus(res, 200))
 		.catch(Help.sendStatusAndError(res, 500, 'Server error updating customer'));
-})
+});
 
 /*
 	Fetch a list of homes associated with @param customer_id.
