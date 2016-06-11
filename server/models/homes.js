@@ -36,8 +36,8 @@ Homes.create = function(customer_id, home) {
 		.then(function(_home) {
 			return createCustomersHomes(customer_id, _home.home_id)
 				.then(() => _home);
-		})
-}
+		});
+};
 
 // Fetch the home associated with @param _home_id
 Homes.findById = function(_home_id) {
@@ -50,7 +50,7 @@ Homes.findById = function(_home_id) {
 		.where({ home_id: _home_id })
 		.then(Help.first)
 		.catch(Help.reportError('finding a home by id'));
-}
+};
 
 // Update a home entry, selected and searched by @ param _home_id.
 Homes.updateById = function(_home_id, newHome) {
@@ -58,7 +58,7 @@ Homes.updateById = function(_home_id, newHome) {
 		.where({ home_id: _home_id })
 		.update(newHome)
 		.catch(Help.reportError('updating a home by id'));
-}
+};
 
 // Remove the home entry associated with @param _home_id
 Homes.deleteById = function(_home_id) {
@@ -67,7 +67,7 @@ Homes.deleteById = function(_home_id) {
 		.del()
 		.catch(Help.reportError('deleting a home by id'))
 		.then(() => deleteCustomersHomesById(_home_id));
-}
+};
 
 // Fetch the homes associated with @param _customer_id
 Homes.ofCustomerId = function(_customer_id) {
@@ -75,7 +75,7 @@ Homes.ofCustomerId = function(_customer_id) {
 		.where({ customer_id: _customer_id })
 		.map((entry) => Homes.findById(entry.home_id))
 		.catch(Help.reportError('retrieving homes by customer id'))
-}
+};
 
 // Create a customer:home entry in the customers_homes table.
 function createCustomersHomes(_customer_id, _home_id) {

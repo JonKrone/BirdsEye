@@ -1,5 +1,5 @@
 const Help = require('../server-helper');
-const Homes = require(__models + '/customers');
+const Homes = require(__models + '/homes');
 
 const HomesAPI = require('express').Router();
 
@@ -11,7 +11,15 @@ module.exports = HomesAPI;
 	@param req.params.home_id: home to update
 	@param req.body: {
 		home: {
-			see param list for POST '/'
+			address <String>,
+			sqft <Number>,
+			stories <Number>,
+			bath_count <Number>,
+			bedroom_count <Number>,
+			heater_type <String>,
+			heater_install_date <String>,
+			ac_type <Number>,
+			ac_install_date <String>,
 		}
 	}
 

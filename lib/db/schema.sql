@@ -6,13 +6,13 @@
 */
 
 CREATE TABLE IF NOT EXISTS users(
-	user_id SERIAL PRIMARY KEY,
+	user_id serial PRIMARY KEY,
 	username text UNIQUE NOT NULL,
 	pass_hash varchar(246) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS customers(
-	customer_id SERIAL PRIMARY KEY,
+	customer_id serial PRIMARY KEY,
 	name text NOT NULL check(char_length(name) > 0),
 	email text UNIQUE NOT NULL check(char_length(email) > 0),
 	phone text,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS customers(
 );
 
 CREATE TABLE IF NOT EXISTS homes(
-	home_id SERIAL PRIMARY KEY,
+	home_id serial PRIMARY KEY,
 	address text, /* unique? */
 	sqft integer,
 	stories integer,
@@ -43,17 +43,17 @@ CREATE TABLE IF NOT EXISTS customers_homes(
 );
 
 CREATE TABLE IF NOT EXISTS rooms(
-	room_id SERIAL PRIMARY KEY,
+	room_id serial PRIMARY KEY,
 	type text,
 	sqft integer,
 	window_count integer DEFAULT 0, /* for ease of entry, or no? */
 	story integer,
-	home_id integer REFERENCES homes ON DELETE SET NULL
+	home_id CONSTANT integer REFERENCES homes ON DELETE SET NULL
 );
 
 /* store photos locally or submit to aws/imgur/etc? */
 CREATE TABLE IF NOT EXISTS images(
-	image_id SERIAL PRIMARY KEY,
+	image_id serial PRIMARY KEY,
 	image_url text NOT NULL,
 	customer_id integer REFERENCES customers ON DELETE SET NULL,
 	home_id integer REFERENCES homes ON DELETE SET NULL,
