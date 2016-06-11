@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS rooms(
 	room_id serial PRIMARY KEY,
 	type text,
 	sqft integer,
-	window_count integer DEFAULT 0, /* for ease of entry, or no? */
+	windows integer DEFAULT 0, /* for ease of entry, or no? */
 	story integer,
-	home_id CONSTANT integer REFERENCES homes ON DELETE SET NULL
+	home_id integer REFERENCES homes ON DELETE SET NULL
 );
 
 /* store photos locally or submit to aws/imgur/etc? */

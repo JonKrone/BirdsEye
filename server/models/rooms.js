@@ -23,7 +23,7 @@ Rooms.create = function(_home_id, room) {
 	room.home_id = _home_id;
 
 	return db('rooms')
-		.returning('room_id')
+		.returning(['room_id'])
 		.insert(room)
 		.then(Help.first)
 		.catch(Help.reportError('Creating room'));

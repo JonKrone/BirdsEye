@@ -13,7 +13,7 @@ module.exports = RoomsAPI;
 		rooms: {
 			name: <String>,
 			type: <String>,
-			size: <Number>,
+			sqft: <Number>,
 			story: <Number>,
 			windows: <Number>,
 		}

@@ -1,7 +1,7 @@
 const Help = require(TEST_HELPER);
 
 const db = require(__lib + '/db/connection');
-const Customers = require(__models + '/rooms');
+const Customers = require(__models + '/customers');
 const Homes = require(__models + '/homes');
 const Rooms = require(__models + '/rooms');
 
@@ -10,7 +10,7 @@ describe('Rooms model', function () {
 	const arya = {
 		name: "No One",
 		email: "Cat@the.canals"
-	}
+	};
 	const treehouse = {
 		address: "P. Sherman Wallaby Way",
 		sqft: 1337,
@@ -21,12 +21,12 @@ describe('Rooms model', function () {
 	};
 	const rumpusRoom = {
 		type: "Rumpus",
-		size: 300,
+		sqft: 300,
 		story: -1,
-	}
+	};
 	const windows = {
 		windows: 2,
-	}
+	};
 	let customer;
 	let home;
 
@@ -39,6 +39,7 @@ describe('Rooms model', function () {
 
 	it_('should create a room', function*() {
 		const room = yield Rooms.create(home.home_id, rumpusRoom);
+		console.log('room:', room);
 
 		expect(room.room_id).to.be.ok;
 	});
@@ -46,9 +47,9 @@ describe('Rooms model', function () {
 	it_('should update rooms by Id', function*() {
 		const room = yield Rooms.create(home.home_id, rumpusRoom);
 		yield Rooms.updateById(room.room_id, windows);
-		const windowedRoom = yield Rooms.ofHomeId(home.home_id);
 
-		expect(windowedRoom[0]).to.have.deep.property('winows', 2);
+		const windowedRoom = yield Rooms.ofHomeId(home.home_id);
+		expect(windowedRoom[0]).to.have.deep.property('windows', 2);
 	});
 
 	it_('should fetch rooms of a house', function*() {
@@ -56,7 +57,7 @@ describe('Rooms model', function () {
 		expect(rooms).to.have.lengthOf(0);
 
 		yield Rooms.create(home.home_id, rumpusRoom);
-		let rooms = yield Rooms.ofHomeId(home.home_id);
+	  rooms = yield Rooms.ofHomeId(home.home_id);
 		expect(rooms).to.have.lengthOf(1);
 	});
 

@@ -39,7 +39,7 @@ HomesAPI.put('/:home_id', function(req, res){
 		room: {
 			home_id: <Number>,
 			type: <String>,
-			size: <Number>,
+			sqft: <Number>,
 			windows: <Number>,
 			story: <Number>,
 			name: <String>,
