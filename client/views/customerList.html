@@ -1,0 +1,7 @@
+<b>Customers</b>
+<!-- make customer-details fuzzy-searchable by name -->
+<customer-detail
+	ng-repeat="customer in $ctrl.customer_list"
+	customer="customer"
+	on-click="$ctrl.selectCustomer(customer)"
+></customer-detail>
