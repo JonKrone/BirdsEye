@@ -9,18 +9,15 @@ angular.module('birdsNest', [
 			.state('customerList', {
 				url: '/',
 				views: {
-					main: { component: 'customerList' },
-					bottomBar: { component: 'customerCreator' },
+					main: { component: 'customerList' }
 				},
-				resolve: {
-					log: function() {
-						console.log('Loading customer LIST.');
-					}
-				}
 			})
 			.state('customerCreator', {
 				url: '/create',
-				component: 'customerCreator',
+				views: {
+					main: { component: 'customerList' },
+					bottomBar: 'customerCreator',
+				},
 				resolve: {
 					log: function() {
 						console.log('Loading customer CREATOR.');

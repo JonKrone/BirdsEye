@@ -10,7 +10,7 @@ module.exports = CustomersAPI;
 /*
 	Create a new customer.
 
-	@param req.body: {
+	@param req.body.data: {
 		customer: {
 			name: <String>,
 			email: <String>,
@@ -29,7 +29,9 @@ module.exports = CustomersAPI;
 	{ error: <String> }
 */
 CustomersAPI.post('/', function(req, res) {
-	Customers.create(req.body.customer)
+	console.log('incoming customer:', req.body.data.customer);
+
+	Customers.create(req.body.data.customer)
 		.then(Help.sendStatusAndData(res, 200))
 		.catch(Help.sendStatusAndError(res, 500, 'Server error creating customer'));
 });
@@ -93,7 +95,7 @@ CustomersAPI.get('/:customer_id', function (req, res) {
 	TODO: Could be useful to track information about who wrote the note and
 	when it was written
 	
-	@param req.body: {
+	@param req.body.data: {
 		customer_id: <Number>,
 		note: <String>,
 	}
@@ -101,8 +103,8 @@ CustomersAPI.get('/:customer_id', function (req, res) {
 	@return via response: status 200 or 500 with { error: <String> }
 */
 CustomersAPI.post('/note', function(req, res) {
-	const customer_id = req.body.customer_id;
-	const note = req.body.note;
+	const customer_id = req.body.data.customer_id;
+	const note = req.body.data.note;
 
 	Customers.createNote(customer_id, note)
 		.then(Help.sendStatus(res, 200))
@@ -113,7 +115,7 @@ CustomersAPI.post('/note', function(req, res) {
 	Update a customer entry. For posterity, do not update notes.
 
 	@param req.params.customer_id: <number>
-	@param req.body: {
+	@param req.body.data: {
 		customer: {
 			name: <String>,
 			email: <String>,
@@ -132,7 +134,7 @@ CustomersAPI.post('/note', function(req, res) {
 */
 CustomersAPI.put('/:customer_id', function(req, res) {
 	const customer_id = req.params.customer_id;
-	const customer = req.body.customer;
+	const customer = req.body.data.customer;
 
 	// More of a thought than a concern. Don't want to/probably can't update a primary key.
 	if ('customer_id' in customer) delete customer['customer_id'];
@@ -172,7 +174,7 @@ CustomersAPI.get('/:customer_id/homes', function(req, res) {
 /*
 	Create a new Home for customer @param customer_id.
 
-	@param req.body: {
+	@param req.body.data: {
 		home: {
 			address <String>,
 			sqft <Number>,
@@ -193,7 +195,7 @@ CustomersAPI.get('/:customer_id/homes', function(req, res) {
 	{ error: <String> }
 */
 CustomersAPI.post('/:customer_id/homes', function(req, res) {
-	Homes.create(req.params.customer_id, req.body.home)
+	Homes.create(req.params.customer_id, req.body.data.home)
 		.then(Help.sendStatusAndData(res, 200))
 		.catch(Help.sendStatusAndError(res, 500, 'Server error creating customer'));
 });
