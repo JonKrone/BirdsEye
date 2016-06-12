@@ -12,6 +12,12 @@ angular.module('birdsNest', [
 					main: { component: 'customerList' }
 				},
 			})
+			// The customerCreator state is not being used atm. Note: state change causes refresh.
+			// note: resolving is helpful. note: views are cool. note: notes are useful.
+			// on a more serious note: From what I've gathered, each state will have to have a
+			// 'resolve' "rule" to authorize a user. Hmm. I bet an abstract state could help
+			// us there. But then we'd have to preface everything with 'authd.customerList'.
+			// egh. I wonder what alternatives exist.
 			.state('customerCreator', {
 				url: '/create',
 				views: {

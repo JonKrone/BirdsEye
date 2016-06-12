@@ -8,6 +8,7 @@
 	ng-click="$ctrl.selectCustomer(customer)">
 </customer-detail>
 
+<!-- This needs to go in the bottomBar ui-view so that it (and all other add/search functionality) is always big and easily available at the bottom of the screen. Can a component in another view access the state of another? We can make it hide/show that way. I really want to prevent refreshing the page, so a simple state change trigger would be nice. I wonder how it would look when a keyboard or something is pulled up. -->
 <!-- <button ui-sref="customerCreator">New Customer</button> -->
 <button ng-click="$ctrl.addCustomer()">{{$ctrl.adding ? 'Nevermind' : 'New Customer'}}</button>
 <div class="customerCreator" ng-show="$ctrl.adding">

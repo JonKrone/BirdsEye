@@ -15,6 +15,7 @@ function CustomerCreatorController ($log, $http) {
 	};
 
 	ctrl.$onInit = function() {
+		// Man. Wouldn't it be nice to sync data with local storage?!
 		$log.log('initializing customer creator');
 	};
 
