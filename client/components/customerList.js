@@ -1,12 +1,11 @@
 
 
-function CustomerListController($log, $element, $attrs, $http) {
+function CustomerListController($log, $scope, $element, $attrs, $http) {
 	const ctrl = this;
-	$log.log(' :) loading customerList Controller');
+	$log.log(':) loading customerList Controller');
 
 	// Load via $http
-	ctrl.customerList = $http.get('/customers')
-		.then(handleCustomerResponse, handleCustomerError);
+	ctrl.customerList = [];
 
 	ctrl.clickCustomer = function(customer) {
 		// const idx = ctrl.customerList.indexOf(customer);
@@ -18,8 +17,6 @@ function CustomerListController($log, $element, $attrs, $http) {
 
 	ctrl.yell = function(customer) {
 		console.log('Why arent we logging?');
-		$log.debug('Why we arent logging?');
-		$log.info('here here');
 
 		ctrl.customerList.push({
 			name: "Robin Ranger",
@@ -31,18 +28,15 @@ function CustomerListController($log, $element, $attrs, $http) {
 
 	ctrl.$onInit = function() {
 		console.log('Why arent we logging?');
-		$log.debug('Why we arent logging?');
-		$log.info('here here');
 
-		ctrl.customerList.push({
-			name: 'Arya',
-			email: 'jj@jj.om',
-		});
+		ctrl.customerList = $http.get('/customers')
+			.then(handleCustomerResponse, handleCustomerError)
+			.then(console.log);
 	}
 
 	function handleCustomerResponse(res) { return res.data; }
 	function handleCustomerError(res) {
-		ctrl.customerList = [];
+		// inform super parent of error to display.
 	}
 }
 
@@ -50,4 +44,10 @@ angular.module('birdsNest').component('customerList', {
 	templateUrl: '../views/customerList.html',
 	controller: CustomerListController,
 	controllerAs: "customerCtrl",
+	bindings: {
+		customerList: '<',
+	},
+	// require: {
+	// 	parentCtrl: '^ctrlName',
+	// }
 });
