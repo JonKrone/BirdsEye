@@ -5,20 +5,21 @@
 	</head>
 
 	<body ng-app="birdsNest">
-		<div class="container">
-			<customer-list></customer-list>
-			<div ui-view></div>
-		</div>
+		<div ui-view="context"></div>
+		<div ui-view="main"></div>
+		<div ui-view="bottomBar"></div>
 	</body>
 
 	<footer>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular-cookies.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular-sanitize.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-alpha.5/angular-ui-router.js"></script>
 		<!-- <script src="./lib/angular-touch/angular-touch.js"></script> -->
 		<script src="app.js"></script>
+		<script src="components/customerCreator.js"></script>
 		<script src="components/customerList.js"></script>
+		<script src="components/customerDetail.js"></script>
 		<!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
 	</footer>
 

@@ -1,16 +1,11 @@
 <b>CustomerList!</b>
+
 <!-- make customer-details fuzzy-searchable by name -->
-<!--
+
 <customer-detail
 	ng-repeat="customer in $ctrl.customerList"
 	customer="customer"
-	on-click="$ctrl.selectCustomer(customer)"
+	ng-click="$ctrl.selectCustomer(customer)"
 ></customer-detail>
--->
-
-<div class="customer"
-	ng-repeat="customer in customerCtrl.customerList"
-	customer="customer"
-	ng-click="customerCtrl.yell(customer);">
-		<span><hr>Welcome home, {{customer.name}}!</span>
-</div>
+<button ui-sref="customerCreator">New Customer</button>
+<div ui-view></div>
