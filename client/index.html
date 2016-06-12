@@ -6,6 +6,7 @@
 
 	<body ng-app="birdsNest">
 		<div class="container">
+			<customer-list></customer-list>
 			<div ui-view></div>
 		</div>
 	</body>
@@ -16,9 +17,9 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular-sanitize.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
 		<!-- <script src="./lib/angular-touch/angular-touch.js"></script> -->
+		<script> console.log("Got to: Loading app.js file!"); </script>
 		<script src="app.js"></script>
-		<script src="src/main.js"></script>
-		<script src="src/about.js"></script>
+		<script src="components/customerList.js"></script>
 		<!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
 	</footer>
 
