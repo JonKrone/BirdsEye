@@ -7,13 +7,13 @@
 	<div ng-show="$ctrl.customerIsSelected()">
 		<label>Email: </label>
 		<span
-			ng-show="$ctrl.hasEmail()"
-			class="customerDetails">
+			class="customerDetails"
+			ng-show="$ctrl.hasEmail()">
 			log me here
 			{{$ctrl.currentCustomer().email}}
 		</span>
 		<div ng-hide="$ctrl.hasEmail()">
-			<input type="tel" ng-model="$ctrl.currentCustomer().email" placeholder="fun@treehouse.com">
+			<input type="tel" ng-model="$ctrl.customerUpdates.email" placeholder="fun@treehouse.com">
 			<button ng-click="$ctrl.updateCustomer()">Add email</button>
 		</div>
 
@@ -22,7 +22,7 @@
 		<div ng-switch="$ctrl.customer.phone">
 			<span ng-switch-when="$ctrl.hasPhone()" class="customerDetails">{{$ctrl.currentCustomer().phone}}</span>
 			<div ng-switch-default>
-				<input type="tel" ng-model="$ctrl.currentCustomer().phone" placeholder="(512) 555-5555">
+				<input type="tel" ng-model="$ctrl.customerUpdates.phone" placeholder="(512) 555-5555">
 				<button ng-click="$ctrl.updateCustomer()">Add phone</button>
 			</div>
 		</div>

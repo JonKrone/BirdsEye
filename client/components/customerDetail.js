@@ -1,6 +1,13 @@
 function CustomerDetailController($http, $stateParams) {
 	const ctrl = this;
 
+	// This object is for temporary storage of form information.
+	ctrl.customerUpdates = {
+		name: null,
+		email: null,
+		phone: null,
+	};
+
 	ctrl.customerIsSelected = () => !!currentCustomer();
 
 	ctrl.hasEmail = function() {
@@ -13,7 +20,7 @@ function CustomerDetailController($http, $stateParams) {
 
 	ctrl.updateCustomer = function() {
 		const customer_id = ctrl.currentCustomer().customer_id;
-		$http.put(`/customers/${customer_id}`, { customer: ctrl.currentCustomer() } )
+		$http.put(`/customers/${customer_id}`, { customer: ctrl.customerUpdates } )
 			.then(function(data) {
 				console.log('Successful customers PUT:', data);
 				// modify current customer? 
