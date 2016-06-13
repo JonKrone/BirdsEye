@@ -1,16 +1,15 @@
 function CustomerDetailController($http, $stateParams) {
 	const ctrl = this;
 
+	ctrl.customerIsSelected = () => !!currentCustomer();
 
-	ctrl.currentCustomer = function() {
-		if (!ctrl.selectedCustomer)	ctrl.selectedCustomer = $stateParams.customer;
+	ctrl.hasEmail = function() {
+		return ctrl.selectedCustomer && 'email' in ctrl.selectedCustomer;
+	};
 
-		return ctrl.selectedCustomer;
+	ctrl.hasPhone = function() {
+		return ctrl.selectedCustomer && 'phone' in ctrl.selectedCustomer;
 	}
-
-	ctrl.customerIsSelected = () => !!ctrl.currentCustomer();
-	ctrl.hasEmail = () => !!ctrl.currentCustomer().email;
-	ctrl.hasPhone = () => !!ctrl.currentCustomer().phone;
 
 	ctrl.updateCustomer = function() {
 		const customer_id = ctrl.currentCustomer().customer_id;
@@ -22,10 +21,16 @@ function CustomerDetailController($http, $stateParams) {
 				console.error('Bad customers PUT:', error);
 				// reset customer.email/phone
 			});
-	}
+	};
 
 	ctrl.$onInit = function() {
 		console.log('creating customer DETAIL controller');
+	};
+
+	function currentCustomer() {
+		if (!ctrl.selectedCustomer)	ctrl.selectedCustomer = $stateParams.customer;
+
+		return ctrl.selectedCustomer;
 	}
 }
 

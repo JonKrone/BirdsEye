@@ -6,17 +6,15 @@
 
 	<div ng-show="$ctrl.customerIsSelected()">
 		<label>Email: </label>
-		<div ng-switch="$ctrl.currentCustomer().email">
-			<span
-				ng-switch-when="$ctrl.hasEmail()"
-				class="customerDetails">
-				log me here
-				{{$ctrl.currentCustomer().email}}
-			</span>
-			<div ng-switch-default>
-				<input type="tel" ng-model="$ctrl.currentCustomer().email" placeholder="fun@treehouse.com">
-				<button ng-click="$ctrl.updateCustomer()">Add email</button>
-			</div>
+		<span
+			ng-show="$ctrl.hasEmail()"
+			class="customerDetails">
+			log me here
+			{{$ctrl.currentCustomer().email}}
+		</span>
+		<div ng-hide="$ctrl.hasEmail()">
+			<input type="tel" ng-model="$ctrl.currentCustomer().email" placeholder="fun@treehouse.com">
+			<button ng-click="$ctrl.updateCustomer()">Add email</button>
 		</div>
 
 		<br>

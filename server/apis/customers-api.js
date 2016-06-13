@@ -29,9 +29,11 @@ module.exports = CustomersAPI;
 	{ error: <String> }
 */
 CustomersAPI.post('/', function(req, res) {
-	console.log('incoming customer:', req.body.data.customer);
+	// Hmm. It seems that I was somehow placing info in the data tag at one point..?
+	// console.log('incoming customer:', req.body.data.customer);
+	console.log('incoming customer:', req.body.customer);
 
-	Customers.create(req.body.data.customer)
+	Customers.create(req.body.customer)
 		.then(Help.sendStatusAndData(res, 200))
 		.catch(Help.sendStatusAndError(res, 500, 'Server error creating customer'));
 });

@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS rooms(
 	home_id integer REFERENCES homes ON DELETE SET NULL
 );
 
-/* store photos locally or submit to aws/imgur/etc? */
+/* We store photos via aws S3 buckets and store the url here. */
 CREATE TABLE IF NOT EXISTS images(
 	image_id serial PRIMARY KEY,
 	image_url text NOT NULL,
