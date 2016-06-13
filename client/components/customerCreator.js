@@ -4,14 +4,15 @@ function CustomerCreatorController ($log, $http) {
 
 	ctrl.submitCustomer = function() {
 		console.log('ctrl.customer', ctrl.customer);
-		// To be more responsive, pre-emptive customerList.push(ctrl.customer);
+		this.parent.customerList.push(ctrl.customer);
 
 		$http.post('/customers', { customer: ctrl.customer })
 			.then(function(good) {
 				console.log('success!!!', good);
 			}, function(err) {
 				console.log('error!!!', err);
-				// remove customerList.indexOf(ctrl.customer);
+				const idx = customerList.indexOf(ctrl.customer);
+				this.parent.customerList.splice(idx, 1);
 			});
 	};
 
@@ -28,7 +29,7 @@ function CustomerCreatorController ($log, $http) {
 angular.module('birdsNest').component('customerCreator', {
 	templateUrl: '../views/customerCreator.html',
 	controller: CustomerCreatorController,
-	// bindings: {
-	// 	customerList: '=',
-	// }
+	require: {
+		parent: '^customerList',
+	}
 });
