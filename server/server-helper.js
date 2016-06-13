@@ -35,7 +35,7 @@ Help.sendStatusAndData = R.curry(function (response, status, data) {
   response.status(status).send(data);
 });
 
-// TODO: rethink.
+// IN PRODUCTION WE DO NOT USE THIS, IT EXPOSES SERVER INFORMATION.
 // Send status and error description to client and log it on the server.
 Help.sendStatusAndError = R.curry(function (response, status, description, error) {
   try {
@@ -45,9 +45,12 @@ Help.sendStatusAndError = R.curry(function (response, status, description, error
 
     //  we throw the error again so we don't lose it! Always good to know when there's an error
   } finally {
-    // code in a finally block _always_ executes.
+    // code in a finally block __always__ executes.
     // we use it so that regardless whether the reportError above throws
     // an error, we will always send the client a response.
-    return Help.sendStatusAndData(response, status, { error: description });
+    if (process.env.NODE_ENV === 'production')
+      Help.sendStatus(response, status);
+    else
+      Help.sendStatusAndData(response, status, { error: description });
   }
 });

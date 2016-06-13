@@ -5,7 +5,11 @@
 	</head>
 
 	<body ng-app="birdsNest">
-		<div ui-view="context"></div>
+		<!-- ui-view:messages is a top-level view for general messages we would like to relay to
+			a user such as successful customer creation or an error -->
+		<div ui-view="messages"></div>
+
+		<div ui-view="sideBar"></div>
 		<div ui-view="main"></div>
 		<div ui-view="bottomBar"></div>
 	</body>
@@ -17,9 +21,10 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-alpha.5/angular-ui-router.js"></script>
 		<!-- <script src="./lib/angular-touch/angular-touch.js"></script> -->
 		<script src="app.js"></script>
-		<script src="components/customerCreator.js"></script>
 		<script src="components/customerList.js"></script>
 		<script src="components/customerDetail.js"></script>
+		<script src="components/customerCreator.js"></script>
+		<script src="components/homeList.js"></script>
 		<!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
 	</footer>
 

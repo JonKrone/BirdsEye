@@ -11,6 +11,12 @@ angular.module('birdsNest', [
 				views: {
 					main: { component: 'customerList' }
 				},
+				resolve: {
+					customer: function($state) {
+						console.log('resolving customer from $state:', $state);
+						return $state.customer;
+					},
+				}
 			})
 			// The customerCreator state is not being used atm. Note: state change causes refresh.
 			// note: resolving is helpful. note: views are cool. note: notes are useful.
@@ -22,7 +28,7 @@ angular.module('birdsNest', [
 				url: '/create',
 				views: {
 					main: { component: 'customerList' },
-					bottomBar: 'customerCreator',
+					// bottomBar: { component: 'customerCreator' }
 				},
 				resolve: {
 					log: function() {
@@ -30,23 +36,34 @@ angular.module('birdsNest', [
 					}
 				}
 			})
-			// .state('homesList', {
-			// 	url: '/homes',
-			// 	component: 'homesList',
-			// 	resolve: {
-			// 		homesList: function($http /*, $stateParams for access to url params */) {
-			// 			// HOW TO ACCESS :customer_id?
-			// 			// const customer_id = $stateParams.params.customer_id;
-			// 			return $http.get(`/customers/${customer_id}/homes`)
-			// 				.then(function(list) {
-			// 					return list;
-			// 				}, function(err) {
-			// 					console.error("error retrieving customer's list of homes.\n", err);
-			// 					// inform error messager of error
-			// 				})
-			// 		}
-			// 	}
-			// });
+			// first real piece of state work
+			// NOTE: our url gives no indication as to which customer we are viewing. This is a huge problem
+			// for state management, especially when sharing URLs. This might be worth implementing during
+			// this challenge if I have time.
+			// NOTE: I have read that it is not possible to have 'params' and url params.
+			.state('homeList', {
+				url: '/homes',
+				params: { customer: null },
+				views: {
+					main: { component: 'homeList' },
+					sideBar: { component: 'customerDetail' },
+					// bottomBar: { component: 'homeCreator' },
+				},
+				resolve: {
+					log: () => console.log('resolving state HOMELIST'),
+					homesList: function($http, $stateParams) {
+						console.log("homeList resolve state:", $stateParams);
+						const customer_id = $stateParams.customer.customer_id;
+						return $http.get(`/customers/${customer_id}/homes`)
+							.then(function(list) {
+								return list;
+							}, function(err) {
+								console.error("error retrieving customer's list of homes.\n", err);
+								// inform error messager of error
+							});
+					},
+				}
+			});
 	})
 	.run(function($rootScope) {
 	  $rootScope.$on("$stateChangeError", console.log.bind(console));

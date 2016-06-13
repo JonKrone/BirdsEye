@@ -123,18 +123,13 @@ CustomersAPI.post('/note', function(req, res) {
 		}
 	}
 
-	@return via response {
-			customer_id: <String>,
-			name: <String>,
-			email: <String>,
-			phone: <String>,
-	}
-	OR
-	{ error: <String> }
+	@return via response status 200 OR status 500 with { error: <String> }
 */
 CustomersAPI.put('/:customer_id', function(req, res) {
 	const customer_id = req.params.customer_id;
-	const customer = req.body.data.customer;
+	// $http.put does not send information in a shape like $http.post
+	// post sends information to req.body.data and put sends it to req.body
+	const customer = req.body.customer;
 
 	// More of a thought than a concern. Don't want to/probably can't update a primary key.
 	if ('customer_id' in customer) delete customer['customer_id'];

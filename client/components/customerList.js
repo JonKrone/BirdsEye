@@ -1,4 +1,4 @@
-function CustomerListController($http, $element) {
+function CustomerListController($http, $state) {
 	const ctrl = this;
 
 	// Loaded via $http in onInit
@@ -9,14 +9,14 @@ function CustomerListController($http, $element) {
 		ctrl.adding = !ctrl.adding;
 	}
 
-	ctrl.selectCustomer = function(customer) {
-		console.log('Customer selected:', customer);
-		// trigger UI routing.
+	ctrl.selectCustomer = function(_customer) {
+		console.log('Customer selected:', _customer);
+		ctrl.currentCustomer = _customer;
+		$state.go('homeList', {customer: _customer} )
 	};
 
 
 	ctrl.$onInit = function() {
-		console.log('initializing customerList');
 		$http.get('/customers')
 			.then(handleCustomerResponse, handleCustomerError);
 	}
