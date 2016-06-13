@@ -2,5 +2,27 @@
 <div class="customerDeatil">
 	<!-- <profile-image imgSrc="{{ctrl.customer.profilePic}}"> -->
 	<span class="customerDetails">{{$ctrl.customer.name}}</span>
+
+	<div ng-show="$superCtrl.customerIsSelected">
+		<label>Email: </label>
+		<div ng-switch="$ctrl.customer.email">
+			<span ng-switch-when="$ctrl.hasEmail()" class="customerDetails">{{$ctrl.customer.email}}</span>
+			<div ng-switch-default>
+				<input type="tel" ng-model="$ctrl.customer.phone" placeholder="fun@treehouse.com">
+				<button ng-click="$ctrl.updateCustomer(customer)">Add email</button>
+			</div>
+		</div>
+
+		<br>
+		<label>Phone: </label>
+		<div ng-switch="$ctrl.customer.phone">
+			<span ng-switch-when="$ctrl.hasPhone()" class="customerDetails">{{$ctrl.customer.phone}}</span>
+			<div ng-switch-default>
+				<input type="tel" ng-model="$ctrl.customer.phone" placeholder="(512) 555-5555">
+				<button ng-click="$ctrl.updateCustomer(customer)">Add phone</button>
+			</div>
+		</div>
+	</div>
+
 </div>
 <hr>
