@@ -2,31 +2,28 @@ function CustomerDetailController($http, $stateParams) {
 	const ctrl = this;
 
 	// This object is for temporary storage of form information.
-	ctrl.customerUpdates = {
-		name: null,
-		email: null,
-		phone: null,
-	};
+	ctrl.customerUpdates = {};
 
-	ctrl.customerIsSelected = () => !!currentCustomer();
+	ctrl.customerIsSelected = () => !!ctrl.currentCustomer();
 
 	ctrl.hasEmail = function() {
-		return ctrl.selectedCustomer && 'email' in ctrl.selectedCustomer;
+		return ctrl.selectedCustomer && ctrl.selectedCustomer.email
 	};
 
 	ctrl.hasPhone = function() {
-		return ctrl.selectedCustomer && 'phone' in ctrl.selectedCustomer;
+		return ctrl.selectedCustomer && ctrl.selectedCustomer.phone
 	}
 
+	// better: break this out into updatePhone and updateEmail to track and revert specific fields.
 	ctrl.updateCustomer = function() {
 		const customer_id = ctrl.currentCustomer().customer_id;
 		$http.put(`/customers/${customer_id}`, { customer: ctrl.customerUpdates } )
 			.then(function(data) {
 				console.log('Successful customers PUT:', data);
-				// modify current customer? 
+				angular.merge(ctrl.selectedCustomer, ctrl.customerUpdates);
 			}, function(error) {
 				console.error('Bad customers PUT:', error);
-				// reset customer.email/phone
+				// reset 
 			});
 	};
 
@@ -34,7 +31,7 @@ function CustomerDetailController($http, $stateParams) {
 		console.log('creating customer DETAIL controller');
 	};
 
-	function currentCustomer() {
+	ctrl.currentCustomer = function() {
 		if (!ctrl.selectedCustomer)	ctrl.selectedCustomer = $stateParams.customer;
 
 		return ctrl.selectedCustomer;

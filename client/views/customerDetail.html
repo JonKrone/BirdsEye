@@ -4,12 +4,12 @@
 	<!-- <profile-image imgSrc="{{ctrl.customer.profilePic}}"> -->
 	<span class="customerDetails">{{$ctrl.customer.name}}</span>
 
+	<!-- Fields should be turned into an editable form on click. -->
 	<div ng-show="$ctrl.customerIsSelected()">
 		<label>Email: </label>
 		<span
 			class="customerDetails"
 			ng-show="$ctrl.hasEmail()">
-			log me here
 			{{$ctrl.currentCustomer().email}}
 		</span>
 		<div ng-hide="$ctrl.hasEmail()">
@@ -19,12 +19,14 @@
 
 		<br>
 		<label>Phone: </label>
-		<div ng-switch="$ctrl.customer.phone">
-			<span ng-switch-when="$ctrl.hasPhone()" class="customerDetails">{{$ctrl.currentCustomer().phone}}</span>
-			<div ng-switch-default>
-				<input type="tel" ng-model="$ctrl.customerUpdates.phone" placeholder="(512) 555-5555">
-				<button ng-click="$ctrl.updateCustomer()">Add phone</button>
-			</div>
+		<span
+			class="customerDetails"
+			ng-show="$ctrl.hasPhone()">
+			{{$ctrl.currentCustomer().phone}}
+		</span>
+		<div ng-hide="$ctrl.hasPhone()">
+			<input type="tel" ng-model="$ctrl.customerUpdates.phone" placeholder="(512) 555-5555">
+			<button ng-click="$ctrl.updateCustomer()">Add phone</button>
 		</div>
 	</div>
 
