@@ -192,7 +192,7 @@ CustomersAPI.get('/:customer_id/homes', function(req, res) {
 	{ error: <String> }
 */
 CustomersAPI.post('/:customer_id/homes', function(req, res) {
-	Homes.create(req.params.customer_id, req.body.data.home)
+	Homes.create(req.params.customer_id, req.body.home)
 		.then(Help.sendStatusAndData(res, 200))
 		.catch(Help.sendStatusAndError(res, 500, 'Server error creating customer'));
 });

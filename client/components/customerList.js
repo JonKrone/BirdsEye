@@ -12,23 +12,25 @@ function CustomerListController($http, $state) {
 	ctrl.selectCustomer = function(_customer) {
 		console.log('Customer selected:', _customer);
 		ctrl.currentCustomer = _customer;
-		$state.go('homeList', {customer: _customer} )
-	};
+
+		// customer is a stateParam, noted in params key of ui-router state homeList
+		$state.go('homeList', { customer: _customer } );
+	}
 
 
 	ctrl.$onInit = function() {
 		$http.get('/customers')
-			.then(handleCustomerResponse, handleCustomerError);
+			.then(getCustomersResponse, getCustomersError);
 	}
 
-	function handleCustomerResponse(res) {
+	function getCustomersResponse(res) {
 		// Set localStorage so we can refer if we lose connection / help restore state.
 		// SERVICE WORKERRR! To the rescue!
 		res.data.push({ name: "ra ta ta ta" });
 		angular.copy(res.data, ctrl.customerList);
 	}
 
-	function handleCustomerError(res) {
+	function getCustomersError(res) {
 		// load from localStorage if possible.
 		// Service worker may dissuade errors from happening.
 

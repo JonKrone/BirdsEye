@@ -1,25 +1,41 @@
-function CustomerCreatorController ($log, $http) {
+function CustomerCreatorController ($log, $http, $state) {
 	const ctrl = this;
 	ctrl.customer = {};
 
 	ctrl.submitCustomer = function() {
-		console.log('ctrl.customer', ctrl.customer);
 		this.parent.customerList.push(ctrl.customer);
 
 		$http.post('/customers', { customer: ctrl.customer })
-			.then(function(good) {
-				console.log('success!!!', good);
-			}, function(err) {
-				console.log('error!!!', err);
-				const idx = this.parent.customerList.indexOf(ctrl.customer);
-				this.parent.customerList.splice(idx, 1);
-			});
+			.then(postCustomerSuccess, postCustomerError);
 	};
 
 	ctrl.$onInit = function() {
 		// Man. Wouldn't it be nice to sync data with local storage?!
-		$log.log('initializing customer creator');
+		console.log('initializing customer creator');
 	};
+
+	function postCustomerSuccess(response) {
+		// While we could mutate ctrl.customer directly, it is a bad pattern to augment
+		// another controller's data. This is a more explicit yet still hacky solution.
+		// A better solution that maintains responsiveness (adds customer to list before confirmation)
+		// and adds the post-confirm customer_id would be a method on the customerList component.
+		const customerInCustomerList = 
+			ctrl.parent.customerList.find((cust) => cust === ctrl.customer)
+		customerInCustomerList.customer_id = response.data.customer_id;
+
+		// prevent data from this submission being shown in the next submission.
+		ctrl.customer = {};
+
+		$state.go('/homeList', { customer: ctrl.customer })
+	}
+
+	function postCustomerError(error) {
+		// inform messaging component. for now:
+		console.error('Error creating a customer.', error);
+
+		const idx = this.parent.customerList.indexOf(ctrl.customer);
+		this.parent.customerList.splice(idx, 1);
+	}
 }
 
 angular.module('birdsNest').component('customerCreator', {

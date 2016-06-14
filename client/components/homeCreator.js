@@ -1,28 +1,32 @@
-function HomeCreatorController ($http, $stateParams, homeList) {
+function HomeCreatorController ($http, $stateParams) {
 	const ctrl = this;
 	ctrl.home = {};
 
+	// Temp work, don't add home to list (still need to show a sumamry)
 	ctrl.submitHome = function() {
-		console.log('homeCreator stateParams:', $stateParams);
 		const customer_id = $stateParams.customer.customer_id;
-
-		console.log('ctrl.home', ctrl.home);
-		this.parent.homeList.push(ctrl.home);
-
 		$http.post(`/customers/${customer_id}/homes`, { home: ctrl.home })
-			.then(function(good) {
-				console.log('success submitting home!!!', good);
-			}, function(err) {
-				console.log('error submitting home!!!', err);
-				const idx = this.parent.homeList.indexOf(ctrl.homeList);
-				this.parent.homeList.splice(idx, 1);
-			});
+			.then(postHomeSuccess, postHomeError);
 	};
 
 	ctrl.$onInit = function() {
 		// Man. Wouldn't it be nice to sync data with local storage?!
 		console.log('initializing customer creator');
 	};
+
+	function postHomeSuccess(response) {
+		ctrl.home.home_id = response.data.home_id;
+		console.log('home creator parent', ctrl.parent);
+		ctrl.parent.homeList.push(ctrl.home);
+
+		// prevent data from this entry appearing in the next home created.
+		ctrl.home = {};
+	}
+
+	function postHomeError(error) {
+		console.log('error submitting home! :(', error);
+		// inform messaging component
+	}
 }
 
 angular.module('birdsNest').component('homeCreator', {

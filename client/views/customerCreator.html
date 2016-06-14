@@ -1,24 +1,24 @@
 <fieldset>
-<legend>Create a customer</legend>
-<label>Name: </label>
-<input required
-	type="text"
-	ng-model="$ctrl.customer.name"
-	placeholder="What's their name?">
+	<legend>Create a customer</legend>
+	<label>Name: </label>
+	<input required
+		type="text"
+		ng-model="$ctrl.customer.name"
+		placeholder="What's their name?">
 
-<label>Email: </label>
-<input
-	type="email"
-	ng-model="$ctrl.customer.email"
-	placeholder="mary@tree.house">
+	<label>Email: </label>
+	<input
+		type="email"
+		ng-model="$ctrl.customer.email"
+		placeholder="mary@tree.house">
 
-<label>Phone: </label>
-<input
-	type="tel"
-	ng-model="$ctrl.customer.phone"
-	placeholder="(512) 555-5555"><!-- pattern="?" -->
+	<label>Phone: </label>
+	<input
+		type="tel"
+		ng-model="$ctrl.customer.phone"
+		placeholder="(512) 555-5555"><!-- pattern="?" -->
 
-<br><button ng-click="$ctrl.submitCustomer()">Add!</button>
+	<br><button ng-click="$ctrl.submitCustomer()">Add!</button>
 </fieldset>
 
 <div ui-view></div>

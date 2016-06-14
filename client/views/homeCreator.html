@@ -1,47 +1,50 @@
-<fieldset>
-<legend>Home Assessment</legend>
+<div class="homeCreator">
+	<fieldset>
+		<legend>Home Assessment</legend>
 
-<label>Address: </label>
-<input required
-	type="text"
-	ng-model="$ctrl.home.address"
-	placeholder="42 P. Sherman Wallaby Way"><!-- pattern="?" -->
+		<label>Address: </label>
+		<input required
+			type="text"
+			ng-model="$ctrl.home.address"
+			placeholder="42 P. Sherman Wallaby Way"><!-- pattern="?" -->
 
-<label>Size (sq-ft): </label>
-<input required
-	type="number"
-	ng-model="$ctrl.home.sqft">
+		<label>Size (sq-ft): </label>
+		<input required
+			type="number"
+			ng-model="$ctrl.home.sqft">
 
-<label>Bathrooms: </label>
-<input required
-	type="number"
-	ng-model="$ctrl.home.bath_count">
+		<label>Bathrooms: </label>
+		<input required
+			type="number"
+			ng-model="$ctrl.home.bath_count">
 
-<label>Bedrooms: </label>
-<input required
-	type="number"
-	ng-model="$ctrl.home.bedroom_count">
+		<label>Bedrooms: </label>
+		<input required
+			type="number"
+			ng-model="$ctrl.home.bedroom_count">
 
-<div class="HVACDetails">
-	<label>Heating System: </label>
-	<select required ng-model="$ctrl.home.heater_type">
-		<option><--- Please Select ---></option>
-		<option>fireplace</option>
-		<option>gas</option>
-	</select>
+		<br>
+		<div class="HVACDetails">
+			<label>Heating System: </label>
+			<select required ng-model="$ctrl.home.heater_type">
+				<option><--- Please Select ---></option>
+				<option>fireplace</option>
+				<option>gas</option>
+			</select>
 
-	<label>Install date: </label>
-	<input
-		type="month"
-		ng-model="$ctrl.home.heater_install_date">
+			<label>Install date: </label>
+			<input
+				type="month"
+				ng-model="$ctrl.home.heater_install_date">
+			<!-- 
+				ac_type text,
+				ac_install_date text
+			-->
+		</div>
 
-	<!-- 
-		ac_type text,
-		ac_install_date text
-	-->
+		<br><button ng-click="$ctrl.submitHome()">Finish Assessment!</button>
+	</fieldset>
+
 </div>
-
-<br><button ng-click="$ctrl.submitHome()">Finish Assessment!</button>
-</fieldset>
 
 <div ui-view></div>
