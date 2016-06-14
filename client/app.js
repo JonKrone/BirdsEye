@@ -19,12 +19,6 @@ angular.module('birdsNest', [
 				views: {
 					main: { component: 'customerList' }
 				},
-				resolve: {
-					customer: function($state) {
-						console.log('resolving customer from $state:', $state);
-						return $state.customer;
-					},
-				}
 			})
 			// The customerCreator state is not being used atm. Note: state change causes refresh.
 			// note: resolving is helpful. note: views are cool. note: notes are useful.
@@ -55,23 +49,8 @@ angular.module('birdsNest', [
 				views: {
 					main: { component: 'homeList' },
 					sideBar: { component: 'customerDetail' },
-					// bottomBar: { component: 'homeCreator' },
+					// bottomBar: { component: 'homeCreator' }, // or: noteTaker and homeCreator a part of homeList
 				},
-				resolve: {
-					log: () => console.log('resolving state HOMELIST'),
-					homeList: function($http, $stateParams) {
-						console.log("homeList resolve stateParams:", $stateParams);
-
-						const customer_id = $stateParams.customer.customer_id;
-						return $http.get(`/customers/${customer_id}/homes`)
-							.then(function(list) {
-								return list;
-							}, function(err) {
-								console.error("error retrieving customer's list of homes.\n", err);
-								// inform error messager of error
-							});
-					},
-				}
 			});
 	})
 	.run(function($rootScope) {
