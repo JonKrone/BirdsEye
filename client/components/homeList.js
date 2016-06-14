@@ -8,8 +8,7 @@ function HomesListController ($http, $stateParams) {
 
 	ctrl.selectHome = function(_home) {
 		console.log('Home selected:', _home);
-		ctrl.currentHome = _home;
-		// $state.go('homeEdit', { home: _home });
+		$state.go('roomList', { customer: $stateParams.customer, home: _home });
 	};
 
 	ctrl.$onInit = function() {

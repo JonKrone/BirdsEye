@@ -51,6 +51,15 @@ angular.module('birdsNest', [
 					sideBar: { component: 'customerDetail' },
 					// bottomBar: { component: 'homeCreator' }, // or: noteTaker and homeCreator a part of homeList
 				},
+			})
+			.state('roomList', {
+				url: '/rooms',
+				params: { customer: null, home: null },
+				views: {
+					main: { component: 'roomList' },
+					sideBar: { component: 'homeDetail' },
+					// bottomBar: { component: 'roomCreator' },
+				}
 			});
 	})
 	.run(function($rootScope) {
