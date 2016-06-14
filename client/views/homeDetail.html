@@ -4,7 +4,7 @@
 	<!-- <profile-image imgSrc="{{ctrl.home.profilePic}}"> -->
 	<span class="homeDetails">
 		{{$ctrl.home.address}}
-		(Bed/Bath: {{$ctrl.home.bed_count}}/{{$ctrl.home.bath_count}})
+		(Bed/Bath: {{$ctrl.home.bedroom_count}}/{{$ctrl.home.bath_count}})
 	</span>
 
 	<div ng-show="$ctrl.selectedHome">
@@ -22,3 +22,5 @@
 
 </div>
 <hr>
+
+<div ui-view></div>

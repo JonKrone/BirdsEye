@@ -1,4 +1,4 @@
-function HomesListController ($http, $stateParams) {
+function HomesListController ($http,  $state, $stateParams) {
 	const ctrl = this;
 
 	ctrl.addingHome = false;

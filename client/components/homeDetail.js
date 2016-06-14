@@ -23,8 +23,8 @@ function HomeDetailController($http, $stateParams) {
 	}
 }
 
-angular.module('birdsNest').component('customerDetail', {
-	templateUrl: '../views/customerDetail.html',
+angular.module('birdsNest').component('homeDetail', {
+	templateUrl: '../views/homeDetail.html',
 	controller: CustomerDetailController,
 	bindings: {
 		customer: '<',
