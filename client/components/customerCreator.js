@@ -11,7 +11,7 @@ function CustomerCreatorController ($log, $http) {
 				console.log('success!!!', good);
 			}, function(err) {
 				console.log('error!!!', err);
-				const idx = customerList.indexOf(ctrl.customer);
+				const idx = this.parent.customerList.indexOf(ctrl.customer);
 				this.parent.customerList.splice(idx, 1);
 			});
 	};
@@ -20,10 +20,6 @@ function CustomerCreatorController ($log, $http) {
 		// Man. Wouldn't it be nice to sync data with local storage?!
 		$log.log('initializing customer creator');
 	};
-
-	function submitCustomerSuccess() {
-
-	}
 }
 
 angular.module('birdsNest').component('customerCreator', {

@@ -1,3 +1,11 @@
+/*
+	Overall TODO
+		- Note taking
+		- Image upload
+		- 
+
+
+*/
 angular.module('birdsNest', [
 		'ui.router',
 	])
@@ -51,8 +59,9 @@ angular.module('birdsNest', [
 				},
 				resolve: {
 					log: () => console.log('resolving state HOMELIST'),
-					homesList: function($http, $stateParams) {
-						console.log("homeList resolve state:", $stateParams);
+					homeList: function($http, $stateParams) {
+						console.log("homeList resolve stateParams:", $stateParams);
+
 						const customer_id = $stateParams.customer.customer_id;
 						return $http.get(`/customers/${customer_id}/homes`)
 							.then(function(list) {
