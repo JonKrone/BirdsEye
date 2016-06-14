@@ -5,7 +5,6 @@ function HomesListController ($http, $stateParams) {
 	ctrl.addHome = function() {
 		ctrl.addingHome = !ctrl.addingHome;
 	}
-	ctrl.isAddingHome = () => ctrl.addingHome;
 
 	ctrl.selectHome = function(_home) {
 		console.log('Home selected:', _home);

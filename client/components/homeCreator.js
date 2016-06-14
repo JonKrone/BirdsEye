@@ -16,7 +16,6 @@ function HomeCreatorController ($http, $stateParams) {
 
 	function postHomeSuccess(response) {
 		ctrl.home.home_id = response.data.home_id;
-		console.log('home creator parent', ctrl.parent);
 		ctrl.parent.homeList.push(ctrl.home);
 
 		// prevent data from this entry appearing in the next home created.

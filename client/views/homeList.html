@@ -7,10 +7,6 @@
 </home-detail>
 
 <button ng-click="$ctrl.addHome()">{{$ctrl.addingHome ? 'Cancel' : 'New Assessment'}}</button>
-<div class="homeCreator" ng-show="$ctrl.isAddingHome()">
-	<home-creator></home-creator>
-	<b> Home Creator</b>
-</div>
-<!-- <home-creator ng-show="$ctrl.isAddingHome()"></home-creator> -->
+<home-creator ng-show="$ctrl.addingHome"></home-creator>
 
 <!-- <div ui-view></div> -->
