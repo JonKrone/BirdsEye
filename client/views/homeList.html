@@ -1,1 +1,12 @@
 <b>As you can see, this is an exhaustive list of your homes!</b>
+
+<home-detail
+	ng-repeat="home in $ctrl.homeList"
+	home="home"
+	ng-click="$ctrl.selectHome(Home)">
+</home-detail>
+
+<button ng-click="$ctrl.addHome()">{{$ctrl.adding ? 'Nevermind' : 'New Customer'}}</button>
+<div class="homeCreator" ng-show="$ctrl.adding">
+	<home-creator></home-creator>
+</div>
