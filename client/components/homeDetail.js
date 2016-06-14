@@ -1,10 +1,16 @@
 function HomeDetailController($http, $stateParams) {
 	const ctrl = this;
 
-	ctrl.homeIsSelected = () => !!ctrl.currentHome();
-	ctrl.currentHome = function() {
-		if (!ctrl.selectedHome) ctrl.selectedHome = $stateParams.home;
-	}
+	ctrl.selectedHome = $stateParams.home;
+	ctrl.selectedCustomer = $stateParams.customer;
+
+	// ctrl.isHomeSelected = () => !!ctrl.currentHome();
+	// ctrl.currentHome = function() {
+	// 	if (!ctrl.selectedHome) ctrl.selectedHome = $stateParams.home;
+
+	// 	return ctrl.selectedHome;
+	// }
+
 
 	ctrl.$onInit = function() {
 		console.log('creating home DETAIL controller');
@@ -22,5 +28,6 @@ angular.module('birdsNest').component('customerDetail', {
 	controller: CustomerDetailController,
 	bindings: {
 		customer: '<',
+		home: '<',
 	},
 });

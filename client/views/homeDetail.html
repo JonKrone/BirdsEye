@@ -1,0 +1,24 @@
+<!-- <b>{{$ctrl}}</b> -->
+<b>home-detail</b>
+<div class="homeDetail">
+	<!-- <profile-image imgSrc="{{ctrl.home.profilePic}}"> -->
+	<span class="homeDetails">
+		{{$ctrl.home.address}}
+		(Bed/Bath: {{$ctrl.home.bed_count}}/{{$ctrl.home.bath_count}})
+	</span>
+
+	<div ng-show="$ctrl.selectedHome">
+		<!-- <profile-image imgSrc="{{$ctrl.home.profilePic}}"> -->
+
+		<br>
+		<label>Owner: </label>
+		<!-- <profile-image imgSrc="{{$ctrl.customer.profilePic"> -->
+		<span class="homeDetails">{{$ctrl.selectedCustomer.name}}</span>
+
+		<br>
+		<label>Address: </label>
+		<span class="homeDetails">{{$ctrl.selectedHome.address}}</span>
+	</div>
+
+</div>
+<hr>
