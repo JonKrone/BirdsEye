@@ -6,6 +6,8 @@
 	ng-click="$ctrl.selectHome(home)">
 </home-detail>
 
+<!-- <button ui-sref="homeCreator">New Home</button> -->
+<!-- A solution for an independently paged assessment tool. -->
 <button ng-click="$ctrl.addHome()">{{$ctrl.addingHome ? 'Cancel' : 'New Assessment'}}</button>
 <home-creator ng-show="$ctrl.addingHome"></home-creator>
 

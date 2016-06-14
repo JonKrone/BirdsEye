@@ -1,0 +1,14 @@
+<b>Room List!</b>
+<hr>
+
+<!-- make customer-details fuzzy-searchable by name -->
+<room-detail
+	ng-repeat="room in $ctrl.roomList"
+	room="room"
+	ng-click="$ctrl.selectRoom(room)">
+</room-detail>
+
+<button ng-click="$ctrl.addRoom()">{{$ctrl.adding ? 'Nevermind' : 'New Room'}}</button>
+<div class="roomCreator" ng-show="$ctrl.adding">
+	<room-creator></room-creator>
+</div>
