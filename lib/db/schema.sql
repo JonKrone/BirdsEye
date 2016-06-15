@@ -16,7 +16,10 @@ CREATE TABLE IF NOT EXISTS customers(
 	name text NOT NULL check(char_length(name) > 0),
 	email text UNIQUE NOT NULL check(char_length(email) > 0),
 	phone text,
-	notes text[]
+	/* For ease of programming, I have created a new table for notes.
+		The table could overflow its bounds but I don't have internet right now
+		and am short on time to figure out postgres array operations.
+	notes text[] */
 );
 
 CREATE TABLE IF NOT EXISTS homes(
@@ -58,4 +61,10 @@ CREATE TABLE IF NOT EXISTS images(
 	customer_id integer REFERENCES customers ON DELETE SET NULL,
 	home_id integer REFERENCES homes ON DELETE SET NULL,
 	room_id integer REFERENCES rooms ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS notes(
+	note_id serial PRIMARY KEY,
+	content text NOT NULL,
+	author integer REFERENCES homes.user_id
 );
