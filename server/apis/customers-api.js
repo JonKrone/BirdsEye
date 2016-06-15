@@ -99,6 +99,9 @@ CustomersAPI.get('/:customer_id', function (req, res) {
 		note: {
 			content: <String>,
 			author: <Number>,
+			customer_id: <Number>,
+			home_id: <Number>,
+			room_id: <NUmber>,
 		},
 	}
 

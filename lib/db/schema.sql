@@ -5,12 +5,6 @@
 	http://www.starkandwayne.com/blog/uuid-primary-keys-in-postgresql/
 */
 
-CREATE TABLE IF NOT EXISTS users(
-	user_id serial PRIMARY KEY,
-	username text UNIQUE NOT NULL,
-	pass_hash varchar(246) UNIQUE NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS customers(
 	customer_id serial PRIMARY KEY,
 	name text NOT NULL check(char_length(name) > 0),
@@ -66,8 +60,8 @@ CREATE TABLE IF NOT EXISTS images(
 CREATE TABLE IF NOT EXISTS notes(
 	note_id serial PRIMARY KEY,
 	content text NOT NULL,
+	author text, /* user_id of consultant from Auth0 db */
 	customer_id integer REFERENCES customers ON DELETE SET NULL,
 	home_id integer REFERENCES homes ON DELETE SET NULL,
-	room_id integer REFERENCES rooms ON DELETE SET NULL,
-	author integer REFERENCES users(user_id)
+	room_id integer REFERENCES rooms ON DELETE SET NULL
 );
