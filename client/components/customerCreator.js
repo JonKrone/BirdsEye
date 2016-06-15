@@ -3,7 +3,7 @@ function CustomerCreatorController ($log, $http, $state) {
 	ctrl.customer = {};
 
 	ctrl.submitCustomer = function() {
-		this.parent.customerList.push(ctrl.customer);
+		ctrl.parent.customerList.push(ctrl.customer);
 
 		$http.post('/customers', { customer: ctrl.customer })
 			.then(postCustomerSuccess, postCustomerError);
@@ -25,6 +25,8 @@ function CustomerCreatorController ($log, $http, $state) {
 
 		// prevent data from this submission being shown in the next submission.
 		ctrl.customer = {};
+
+		ctrl.parent.adding = false;
 
 		$state.go('/homeList', { customer: ctrl.customer })
 	}

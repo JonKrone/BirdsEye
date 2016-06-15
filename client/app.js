@@ -27,7 +27,7 @@ angular.module('birdsNest', [
 			.state('customerList', {
 				url: '/',
 				views: {
-					main: { component: 'customerList' }
+					main: { component: 'customerList' },
 				},
 			})
 			// The customerCreator state is not being used atm. Note: state change causes refresh.
@@ -59,7 +59,9 @@ angular.module('birdsNest', [
 				views: {
 					main: { component: 'homeList' },
 					sideBar: { component: 'customerDetail' },
+					// homeCreator as it stands can not function as a standalone component.
 					// bottomBar: { component: 'homeCreator' }, // or: noteTaker and homeCreator a part of homeList
+					actionBar: { component: 'noteTaker' },
 				},
 			})
 			.state('roomList', {

@@ -66,5 +66,8 @@ CREATE TABLE IF NOT EXISTS images(
 CREATE TABLE IF NOT EXISTS notes(
 	note_id serial PRIMARY KEY,
 	content text NOT NULL,
+	customer_id integer REFERENCES customers ON DELETE SET NULL,
+	home_id integer REFERENCES homes ON DELETE SET NULL,
+	room_id integer REFERENCES rooms ON DELETE SET NULL,
 	author integer REFERENCES users(user_id)
 );

@@ -1,6 +1,7 @@
 const Help = require('../server-helper');
 const Customers = require(__models + '/customers');
 const Homes = require(__models + '/homes');
+const Notes = require(__models + '/notes');
 
 const CustomersAPI = require('express').Router();
 const homesAPI = require('./homes-api');
@@ -92,24 +93,52 @@ CustomersAPI.get('/:customer_id', function (req, res) {
 
 /*
 	Create a note for a customer.
-	TODO: Could be useful to track information about who wrote the note and
-	when it was written
 	
-	@param req.body.data: {
-		customer_id: <Number>,
-		note: <String>,
+	@param req.params: { customer_id: <Number> }
+	@param req.body: {
+		note: {
+			content: <String>,
+			author: <Number>,
+		},
 	}
 
-	@return via response: status 200 or 500 with { error: <String> }
+	@return via response: { note_id: <Number> }
+	OR
+	status 500 with { error: <String> }
 */
-CustomersAPI.post('/note', function(req, res) {
-	const customer_id = req.body.customer_id;
+CustomersAPI.post('/:customer_id/notes', function(req, res) {
+	const customer_id = req.params.customer_id;
 	const note = req.body.note;
 
-	Customers.createNote(customer_id, note)
-		.then(Help.sendStatus(res, 200))
+	Notes.createNote(customer_id, note)
+		.then(Help.sendStatusAndData(res, 200))
 		.catch(Help.sendStatusAndError(res, 500, 'Server error creating note'));
 });
+
+/*
+	Fetch all of a customer's notes.
+
+	@param req.params: { customer_id: <Number> }
+	
+	@return via response: [
+		{
+			content: <String>
+			author: <Number>
+			customer_id: <Number>
+			home_id: <Number/null>
+			room_id: <Number/null>
+		}
+	]
+	OR
+	status 500 with { error: <String> }
+*/
+CustomersAPI.get('/:customer_id/notes', function(req, res) {
+	const customer_id = req.params.customer_id;
+
+	Notes.ofCustomer(customer_id)
+		.then(Help.sendStatusAndData(res, 200))
+		.catch(Help.sendStatusAndError(res, 500, 'Server error fetching notes'));
+})
 
 /*
 	Update a customer entry. For posterity, do not update notes.

@@ -26,7 +26,6 @@ function CustomerListController($http, $state) {
 	function getCustomersResponse(res) {
 		// Set localStorage so we can refer if we lose connection / help restore state.
 		// SERVICE WORKERRR! To the rescue!
-		res.data.push({ name: "ra ta ta ta" });
 		angular.copy(res.data, ctrl.customerList);
 	}
 

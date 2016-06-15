@@ -17,7 +17,7 @@ Customers.create = function(customer) {
 	// validation should take place here
 
 	return db('customers')
-		.returning(['customer_id', 'email', 'name', 'phone', 'notes'])
+		.returning(['customer_id'])
 		.insert(customer)
 		.then(Help.first)
 		.catch(Help.reportError('Creating customer'));

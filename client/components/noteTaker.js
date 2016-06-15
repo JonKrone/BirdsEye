@@ -1,7 +1,6 @@
 // Is note taking a service?
-// Make notes taggable?
-
-function NoteTakerController($http) {
+// Make notes taggable
+function NoteTakerController($http, $stateParams) {
 	const ctrl = this;
 
 	ctrl.note = {};
@@ -29,16 +28,16 @@ function NoteTakerController($http) {
 		const customer_id = $stateParams.customer.customer_id;
 		ctrl.noteList = [];
 
-		$http.get(`/customers/${customer_id}/notes')
+		$http.get(`/customers/${customer_id}/notes`)
 			.then(getNotesSuccess, getNotesError);
 	};
 
 	function postNoteSucces(response) {
 		// again, tough call. Finding by index is an intensive operation, especially
 		// when we have a pointer to the note we want already. The downside is that we
-		// are retroactively augmenting an array. In this case, because this controller
-		// owns the array, I have chosen to augment it indirectly. I would likely not
-		// do this in a production code base, in favor of being more explicit and less
+		// are retroactively changing an array. In this case, because this controller
+		// owns the array, I have chosen to change it indirectly. I would likely not
+		// do this in a production codebase, in favor of being more explicit and less
 		// dependent on the state of this controller.
 		ctrl.note.note_id = response.data.note_id;
 
@@ -50,15 +49,15 @@ function NoteTakerController($http) {
 		const idx = ctrl.noteList.indexOf(ctrl.note);
 		ctrl.noteList.splice(idx, 1);
 
-		// inform messaging component.
+		// inform messaging service.
 	}
 
 	function getNotesSuccess(response) {
 		ctrl.noteList = response.data.notes;
 	}
 	function getNotesError(error) {
-		console.error("Error fetching customer's notes." error);
-		// inform messaging component / service
+		console.error("Error fetching customer's notes.", error);
+		// inform messaging service
 	}
 }
 
