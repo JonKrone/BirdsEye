@@ -16,7 +16,7 @@ function NoteTakerController($http, $stateParams, store) {
 
 	ctrl.closeNote = function() {
 		ctrl.selectedNote = null;
-	}
+	};
 
 	ctrl.submitNote = function() {
 		// if (ctrl.homeList)
