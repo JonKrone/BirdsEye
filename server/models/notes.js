@@ -15,6 +15,7 @@ const Notes = module.exports;
 	}
 */
 Notes.create = function(note) {
+	console.log('creating note:', note);
 	return db('notes')
 		// .returning(['note_id'])
 		.insert(note, ['note_id'])
