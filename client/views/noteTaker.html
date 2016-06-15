@@ -1,14 +1,16 @@
 <b>Notes notes notes, write your notes here</b>
 
 <div class="noteDisplay">
-	<select>
-		<option
+	<select
+		ng-options="note.title for note in $ctrl.noteList"
+		ng-change="$ctrl.selectNote(note)">
+<!-- 		<option
 			ng-repeat="note in $ctrl.noteList"
 			note="note"
-			ng-click="$ctrl.selectNote(note)">
+			ng-change="$ctrl.selectNote(note)">
 		{{note.title}}
 		</option>
-	</select>
+ -->	</select>
 	<div class="noteList" ng-show="$ctrl.selectedNote">
 		<label>Subject: </label><span>{{$ctrl.selectedNote.title}}</span>
 		<br>

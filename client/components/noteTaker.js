@@ -42,7 +42,7 @@ function NoteTakerController($http, $stateParams, store) {
 			.then(getNotesSuccess, getNotesError);
 	};
 
-	function postNoteSucces(response) {
+	function postNoteSuccess(response) {
 		// again, tough call. Finding by index is an intensive operation, especially
 		// when we have a pointer to the note we want already. The downside is that we
 		// are retroactively changing an array. In this case, because this controller
