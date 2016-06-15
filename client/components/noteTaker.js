@@ -11,6 +11,7 @@ function NoteTakerController($http, $stateParams, store) {
 	};
 
 	ctrl.selectedNote = null;
+	ctrl.noteIsSelected = () => !!ctrl.selectedNote;
 	ctrl.selectNote = function(note) {
 		console.log('$ctrl.notes:', ctrl.notes);
 		ctrl.selectedNote = note;
