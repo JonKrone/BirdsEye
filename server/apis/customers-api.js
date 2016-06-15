@@ -113,7 +113,7 @@ CustomersAPI.post('/:customer_id/notes', function(req, res) {
 	const customer_id = req.params.customer_id;
 	const note = req.body.note;
 
-	Notes.createNote(customer_id, note)
+	Notes.create(customer_id, note)
 		.then(Help.sendStatusAndData(res, 200))
 		.catch(Help.sendStatusAndError(res, 500, 'Server error creating note'));
 });
