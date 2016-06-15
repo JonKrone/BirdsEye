@@ -63,7 +63,9 @@ function NoteTakerController($http, $stateParams, store) {
 	}
 
 	function getNotesSuccess(response) {
-		ctrl.noteList = response.data.notes;
+		console.log('NOTES response.data!', response.data);
+
+		ctrl.noteList = response.data;
 	}
 	function getNotesError(error) {
 		console.error("Error fetching customer's notes.", error);
