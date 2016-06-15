@@ -18,17 +18,28 @@
 */
 angular.module('birdsNest', [
 		'ui.router',
+		'auth0',
+		'angular-storage',
+		'angular-jwt'
 	])
-	.config(function($stateProvider, $urlRouterProvider, $logProvider) {
+	.config(function($stateProvider, $urlRouterProvider, $logProvider,
+		$httpProvider, $locationProvider, authProvider, jwtInterceptorProvider) {
 		$logProvider.debugEnabled(true);
 		$urlRouterProvider.otherwise('/');
 
 		$stateProvider
+			.state('login', {
+				url: '/login',
+				views: {
+					main: {  },
+				},
+			})
 			.state('customerList', {
 				url: '/',
 				views: {
 					main: { component: 'customerList' },
 				},
+				data: { requiresLogin: true },
 			})
 			// The customerCreator state is not being used atm. Note: state change causes refresh.
 			// note: resolving is helpful. note: views are cool. note: notes are useful.
@@ -46,7 +57,8 @@ angular.module('birdsNest', [
 					log: function() {
 						console.log('Loading customer CREATOR.');
 					}
-				}
+				},
+				data: { requiresLogin: true },
 			})
 			// first real piece of state work
 			// NOTE: our url gives no indication as to which customer we are viewing. This is a huge problem
@@ -63,6 +75,7 @@ angular.module('birdsNest', [
 					// bottomBar: { component: 'homeCreator' }, // or: noteTaker and homeCreator a part of homeList
 					actionBar: { component: 'noteTaker' },
 				},
+				data: { requiresLogin: true },
 			})
 			.state('roomList', {
 				url: '/rooms',
@@ -72,9 +85,46 @@ angular.module('birdsNest', [
 					sideBar: { component: 'homeDetail' },
 					actionBar: { component: 'noteTaker' },
 				}
+				data: { requiresLogin: true },
 			});
+
+		/* Commence Auth0 Configuration */
+		authProvider.init({
+	    domain: 'jonkrone.auth0.com',
+	    clientID: 'IuHh4hPijOeCWzLtswpO3C0sKWPDGoN6',
+	    loginState: 'login',
+		});
+
+		//Called when login is successful
+		authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {
+		  console.log("Login Success");
+		  profilePromise.then(function(profile) {
+		    store.set('profile', profile);
+		    store.set('token', idToken);
+		  });
+		  $location.path('/');
+		});
+
+		//Called when login fails
+		authProvider.on('loginFailure', function() {
+		  console.log("Error logging in");
+		  $location.path('/login');
+		});
+
+		//Angular HTTP Interceptor function
+		// Retrieves the Auth0 token
+		jwtInterceptorProvider.tokenGetter = function(store) {
+		    return store.get('token');
+		}
+
+		//Push interceptor function to $httpProvider's interceptors
+		// Attaches Auth0's JWT to every HTTP request we send out! Nice!
+		$httpProvider.interceptors.push('jwtInterceptor');
+
 	})
-	.run(function($rootScope) {
+	.run(function($rootScope, auth) {
+		auth.hookEvents();
+
 	  $rootScope.$on("$stateChangeError", console.log.bind(console));
 	});
 
