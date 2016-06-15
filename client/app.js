@@ -90,8 +90,8 @@ angular.module('birdsNest', [
 
 		/* Commence Auth0 Configuration */
 		authProvider.init({
-	    domain: process.env.AUTH0_DOMAIN,
-	    clientID: process.env.AUTH0_CLIENT_ID,
+	    domain: 'jonkrone.auth0.com',
+	    clientID: '6ONoihykXSXjDfT3E7eSEu2gxEXylARX',
 	    loginState: 'login',
 		});
 
