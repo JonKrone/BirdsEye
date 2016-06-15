@@ -1,8 +1,9 @@
 <b>Notes notes notes, write your notes here</b>
 
 <div class="noteField" ng-show="$ctrl.takingNote">
-	<input type="text"
+	<textarea
 		placeholder="your note here"
-		ng-model="$ctrl.note.content">
+		ng-model="$ctrl.note.content"
+		></textarea>
 </div>
 <button ng-click="$ctrl.takeNote()">{{$ctrl.takingNote ? 'Cancel' : 'Write Note'}}</button>

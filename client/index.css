@@ -7,5 +7,11 @@ input {
 }
 
 .noteTaker {
-	float: bottom right;
+	position: absolute;
+	bottom: 0;
 }
+
+#appBody {
+	position: relative;
+}
+
