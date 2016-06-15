@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS customers(
 	customer_id serial PRIMARY KEY,
 	name text NOT NULL check(char_length(name) > 0),
 	email text UNIQUE NOT NULL check(char_length(email) > 0),
-	phone text,
+	phone text
 	/* For ease of programming, I have created a new table for notes.
 		The table could overflow its bounds but I don't have internet right now
 		and am short on time to figure out postgres array operations.
@@ -66,5 +66,5 @@ CREATE TABLE IF NOT EXISTS images(
 CREATE TABLE IF NOT EXISTS notes(
 	note_id serial PRIMARY KEY,
 	content text NOT NULL,
-	author integer REFERENCES homes.user_id
+	author integer REFERENCES users(user_id)
 );

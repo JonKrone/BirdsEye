@@ -11,8 +11,10 @@
 
 		<div ui-view="sideBar"></div>
 		<div ui-view="main"></div>
-		<div ui-view="bottomBar"></div>
-		<!-- <div ui-view="bottomAction"></div> -->
+		<div class="bottomBar">
+			<div ui-view="bottomBar"></div>
+			<div ui-view="actionBar"></div>
+		</div>
 	</body>
 
 	<footer>

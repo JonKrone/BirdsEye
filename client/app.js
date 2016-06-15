@@ -1,10 +1,20 @@
 /*
+	Okay, the first big mistake:
+	I specifically chose to not nest my states. Mostly as a method of reducing
+	new knowledge overhead. Problems (or inefficient solutions) may now be arising
+	because the view states are all independent. I first noticed this when, as is
+	so often the case with state issues, navigating back from the rooms state.
+	The application lost a reference to the customer.
+
+	A workaround in these cases: we can use the detail components as a 'back' button
+	and explicitly pass the data to render the previous state. 
+*/
+
+/*
 	Overall TODO
 		- Note taking
 		- Image upload
-		- 
-
-
+		- Users
 */
 angular.module('birdsNest', [
 		'ui.router',

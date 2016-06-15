@@ -1,4 +1,4 @@
-function HomesListController ($http,  $state, $stateParams) {
+function HomeListController ($http,  $state, $stateParams) {
 	const ctrl = this;
 
 	ctrl.addingHome = false;
@@ -31,5 +31,5 @@ function HomesListController ($http,  $state, $stateParams) {
 
 angular.module('birdsNest').component('homeList', {
 	templateUrl: '../views/homeList.html',
-	controller: HomesListController,
+	controller: HomeListController,
 });

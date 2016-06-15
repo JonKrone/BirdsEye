@@ -91,8 +91,6 @@ CustomersAPI.get('/:customer_id', function (req, res) {
 });
 
 /*
-	NOT IMPLEMENTED IN MODEL
-
 	Create a note for a customer.
 	TODO: Could be useful to track information about who wrote the note and
 	when it was written
@@ -105,8 +103,8 @@ CustomersAPI.get('/:customer_id', function (req, res) {
 	@return via response: status 200 or 500 with { error: <String> }
 */
 CustomersAPI.post('/note', function(req, res) {
-	const customer_id = req.body.data.customer_id;
-	const note = req.body.data.note;
+	const customer_id = req.body.customer_id;
+	const note = req.body.note;
 
 	Customers.createNote(customer_id, note)
 		.then(Help.sendStatus(res, 200))

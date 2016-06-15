@@ -12,10 +12,12 @@ function NoteTakerController($http) {
 	};
 
 	ctrl.submitNote = function() {
+		// hard code for testing without user functionality.
+		ctrl.note.author = 1;
 		ctrl.noteList.push(ctrl.note);
 
 		const customer_id = $stateParams.customer.customer_id;
-		$http.post(`/customers/${customer_id}/notes`)
+			$http.post(`/customers/${customer_id}/notes`, { note: ctrl.note })
 			.then(postNoteSuccess, postNoteError);
 	};
 
