@@ -31,7 +31,7 @@ angular.module('birdsNest', [
 			.state('login', {
 				url: '/login',
 				views: {
-					main: {  },
+					main: { component: 'login' },
 				},
 			})
 			.state('customerList', {
@@ -84,28 +84,28 @@ angular.module('birdsNest', [
 					main: { component: 'roomList' },
 					sideBar: { component: 'homeDetail' },
 					actionBar: { component: 'noteTaker' },
-				}
+				},
 				data: { requiresLogin: true },
 			});
 
 		/* Commence Auth0 Configuration */
 		authProvider.init({
 	    domain: 'jonkrone.auth0.com',
-	    clientID: 'IuHh4hPijOeCWzLtswpO3C0sKWPDGoN6',
+	    clientID: '6ONoihykXSXjDfT3E7eSEu2gxEXylARX',
 	    loginState: 'login',
 		});
 
-		//Called when login is successful
+		//Called when Auth0 login is successful
 		authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {
-		  console.log("Login Success");
 		  profilePromise.then(function(profile) {
+		  	console.log("Login Success! Data:", idToken, profile);
 		    store.set('profile', profile);
 		    store.set('token', idToken);
 		  });
 		  $location.path('/');
 		});
 
-		//Called when login fails
+		//Called when Auth0 login fails
 		authProvider.on('loginFailure', function() {
 		  console.log("Error logging in");
 		  $location.path('/login');
