@@ -3,8 +3,7 @@
 <div class="noteDisplay">
 	<select
 		ng-options="note.title for note in $ctrl.noteList"
-		ng-model="$ctrl.notes"
-		ng-change="$ctrl.selectNote(note)">
+		ng-model="$ctrl.selectedNote">
 <!-- 		<option
 			ng-repeat="note in $ctrl.noteList"
 			note="note"
@@ -12,7 +11,7 @@
 		{{note.title}}
 		</option>
  -->	</select>
-	<div class="noteList" ng-show="$ctrl.noteIsSelected()">
+	<div class="notePaper" ng-show="$ctrl.noteIsSelected()">
 		<label>Subject: </label><span>{{$ctrl.selectedNote.title}}</span>
 		<br>
 		<label>Note: </label><p>{{$ctrl.selectedNote.content}}</p>
