@@ -8,7 +8,8 @@
 
 <!-- <button ui-sref="homeCreator">New Home</button> -->
 <!-- A solution for an independently paged assessment tool. -->
-<button ng-click="$ctrl.addHome()">{{$ctrl.addingHome ? 'Cancel' : 'New Assessment'}}</button>
-<home-creator ng-show="$ctrl.addingHome"></home-creator>
-
+<div class="homeCreator">
+	<button ng-click="$ctrl.addHome()">{{$ctrl.addingHome ? 'Cancel' : 'New Assessment'}}</button>
+	<home-creator ng-show="$ctrl.addingHome"></home-creator>
+</div>
 <!-- <div ui-view></div> -->

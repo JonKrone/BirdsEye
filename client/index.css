@@ -1,3 +1,11 @@
 input {
 	width: 10rem;
 }
+
+.homeDetail {
+	float: bottom;
+}
+
+.noteTaker {
+	float: bottom right;
+}
