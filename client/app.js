@@ -70,7 +70,7 @@ angular.module('birdsNest', [
 				views: {
 					main: { component: 'roomList' },
 					sideBar: { component: 'homeDetail' },
-					// bottomBar: { component: 'roomCreator' },
+					actionBar: { component: 'noteTaker' },
 				}
 			});
 	})

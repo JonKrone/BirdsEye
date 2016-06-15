@@ -20,6 +20,7 @@ function HomeCreatorController ($http, $stateParams) {
 
 		// prevent data from this entry appearing in the next home created.
 		ctrl.home = {};
+		ctrl.parent.addingHome = false;
 	}
 
 	function postHomeError(error) {

@@ -4,3 +4,5 @@ npm-debug.log
 
 ## postgres server directory
 db/
+
+SECRETS.JS
