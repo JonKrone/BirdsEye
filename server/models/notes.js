@@ -16,8 +16,8 @@ const Notes = module.exports;
 */
 Notes.create = function(note) {
 	return db('notes')
-		.returning(['note_id'])
-		.insert(note)
+		// .returning(['note_id'])
+		.insert(note, ['note_id'])
 		.then(Help.first)
 		.catch(Help.reportError('Creating note'));
 };
