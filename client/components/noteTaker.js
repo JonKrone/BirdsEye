@@ -10,13 +10,14 @@ function NoteTakerController($http, $stateParams, store) {
 		ctrl.takingNote = !ctrl.takingNote;
 	};
 
+	ctrl.selectedNote = null;
 	ctrl.selectNote = function(note) {
 		ctrl.selectedNote = note;
 	};
 
 	ctrl.closeNote = function() {
 		ctrl.selectedNote = null;
-	};
+	}
 
 	ctrl.submitNote = function() {
 		// if (ctrl.homeList)
@@ -73,8 +74,8 @@ function NoteTakerController($http, $stateParams, store) {
 angular.module('birdsNest').component('noteTaker', {
 	templateUrl: "../views/noteTaker.html",
 	controller: NoteTakerController,
-	bindings: {
-		homeList: '^homeList',
-		roomList: '^roomList',
-	}
+	// bindings: {
+	// 	homeList: '^homeList',
+	// 	roomList: '^roomList',
+	// }
 });
