@@ -24,8 +24,10 @@ Notes.create = function(note) {
 
 // Fetch all the notes of customer @param _customer_id
 Notes.ofCustomer = function(_customer_id) {
+	console.log('fetching notes of customer:', _customer_id);
 	return db('notes')
 		.where({ customer_id: _customer_id })
+		.select('*')
 		.catch(Help.reportError('Retrieving notes of a customer'));
 }
 
