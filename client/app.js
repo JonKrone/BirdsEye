@@ -97,8 +97,8 @@ angular.module('birdsNest', [
 
 		//Called when Auth0 login is successful
 		authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {
+		  console.log("Login Success!");
 		  profilePromise.then(function(profile) {
-		  	console.log("Login Success! Data:", idToken, profile);
 		    store.set('profile', profile);
 		    store.set('token', idToken);
 		  });

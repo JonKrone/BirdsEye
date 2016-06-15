@@ -27,5 +27,6 @@
 		placeholder="your note here"
 		ng-model="$ctrl.note.content"
 		></textarea>
+	<button ng-click="$ctrl.submitNote()">Add Note</button>
 </div>
 <button ng-click="$ctrl.takeNote()">{{$ctrl.takingNote ? 'Cancel' : 'Write Note'}}</button>
