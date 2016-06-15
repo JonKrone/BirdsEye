@@ -28,6 +28,7 @@ function NoteTakerController($http, $stateParams, store) {
 		ctrl.note.author = store.get('profile').user_id;
 		ctrl.noteList.push(ctrl.note);
 
+		console.log('submitting note:', ctrl.note);
 		const customer_id = $stateParams.customer.customer_id;
 			$http.post(`/customers/${customer_id}/notes`, { note: ctrl.note })
 			.then(postNoteSuccess, postNoteError);
