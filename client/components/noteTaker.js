@@ -10,9 +10,16 @@ function NoteTakerController($http, $stateParams, store) {
 		ctrl.takingNote = !ctrl.takingNote;
 	};
 
-	ctrl.submitNote = function() {
+	ctrl.selectNote = function(note) {
+		ctrl.selectedNote = note;
+	};
 
-		if (ctrl.homeList)
+	ctrl.closeNote = function() {
+		ctrl.selectedNote = null;
+	}
+
+	ctrl.submitNote = function() {
+		// if (ctrl.homeList)
 
 		ctrl.note.author = store.get('profile').user_id;
 		ctrl.noteList.push(ctrl.note);

@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS images(
 
 CREATE TABLE IF NOT EXISTS notes(
 	note_id serial PRIMARY KEY,
+	title text NOT NULL,
 	content text NOT NULL,
 	author text, /* user_id of consultant from Auth0 db */
 	customer_id integer REFERENCES customers ON DELETE SET NULL,

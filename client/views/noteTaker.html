@@ -1,6 +1,28 @@
 <b>Notes notes notes, write your notes here</b>
 
+<div class="noteDisplay">
+	<select>
+		<option
+			ng-repeat="note in $ctrl.noteList"
+			note="note"
+			ng-click="$ctrl.selectNote(note)">
+		{{note.title}}
+		</option>
+	</select>
+	<div class="noteList" ng-show="$ctrl.selectedNote">
+		<label>Subject: </label><span>{{$ctrl.selectedNote.title}}</span>
+		<br>
+		<label>Note: </label><p>{{$ctrl.selectedNote.content}}</p>
+		<br>
+		<button ng-click="$ctrl.closeNote()">Close Note</button>
+	</div>
+</div>
+
 <div class="noteField" ng-show="$ctrl.takingNote">
+	<input type="text" placeholder="Subject" ng-model="$ctrl.note.title">
+	<!-- <select>
+		<option
+	</select> -->
 	<textarea
 		placeholder="your note here"
 		ng-model="$ctrl.note.content"
