@@ -2,7 +2,7 @@
   "name": "BirdsEye",
   "version": "0.0.0",
   "description": "The backend service for maintaining client infomation and performing Home consultations.",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
     "test": "./node_modules/.bin/mocha --recursive -r test/test-init.js",
