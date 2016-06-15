@@ -122,10 +122,26 @@ angular.module('birdsNest', [
 		$httpProvider.interceptors.push('jwtInterceptor');
 
 	})
-	.run(function($rootScope, auth) {
+	.run(function($rootScope, auth, store, jwtHelper, $location) {
 		auth.hookEvents();
 
 	  $rootScope.$on("$stateChangeError", console.log.bind(console));
+
+	  $rootScope.$on('$locationChangeStart', function() {
+	    const token = store.get('token');
+
+	    if (token) {
+	      if (!jwtHelper.isTokenExpired(token)) {
+	        if (!auth.isAuthenticated) {
+	          //Re-authenticate user if token is valid
+	          auth.authenticate(store.get('profile'), token);
+	        }
+	      } else {
+	        // Either show the login page or use the refresh token to get a new idToken
+	        $location.path('/login');
+	      }
+	    }
+	  });
 	});
 
 

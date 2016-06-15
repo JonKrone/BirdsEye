@@ -1,6 +1,6 @@
 // Is note taking a service?
 // Make notes taggable
-function NoteTakerController($http, $stateParams) {
+function NoteTakerController($http, $stateParams, store) {
 	const ctrl = this;
 
 	ctrl.note = {};
@@ -11,8 +11,10 @@ function NoteTakerController($http, $stateParams) {
 	};
 
 	ctrl.submitNote = function() {
-		// hard code for testing without user functionality.
-		ctrl.note.author = 1;
+
+		if (ctrl.homeList)
+
+		ctrl.note.author = store.get('profile').user_id;
 		ctrl.noteList.push(ctrl.note);
 
 		const customer_id = $stateParams.customer.customer_id;
@@ -64,4 +66,8 @@ function NoteTakerController($http, $stateParams) {
 angular.module('birdsNest').component('noteTaker', {
 	templateUrl: "../views/noteTaker.html",
 	controller: NoteTakerController,
+	bindings: {
+		homeList: '^homeList',
+		roomList: '^roomList',
+	}
 });

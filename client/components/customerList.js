@@ -1,4 +1,4 @@
-function CustomerListController($http, $state) {
+function CustomerListController($http, $state, auth) {
 	const ctrl = this;
 
 	// Loaded via $http in onInit
@@ -19,6 +19,8 @@ function CustomerListController($http, $state) {
 
 
 	ctrl.$onInit = function() {
+		if (!auth.isAuthenticated) console.warn("Please authenticate by visiting /login.");
+		
 		$http.get('/customers')
 			.then(getCustomersResponse, getCustomersError);
 	}

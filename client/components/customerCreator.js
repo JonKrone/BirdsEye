@@ -35,6 +35,8 @@ function CustomerCreatorController ($log, $http, $state) {
 		// inform messaging component. for now:
 		console.error('Error creating a customer.', error);
 
+		if (!this.parent.customerList) return;
+
 		const idx = this.parent.customerList.indexOf(ctrl.customer);
 		this.parent.customerList.splice(idx, 1);
 	}
