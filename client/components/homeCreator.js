@@ -11,7 +11,6 @@ function HomeCreatorController ($http, $stateParams) {
 
 	ctrl.$onInit = function() {
 		// Man. Wouldn't it be nice to sync data with local storage?!
-		console.log('initializing customer creator');
 	};
 
 	function postHomeSuccess(response) {
